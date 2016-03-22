@@ -17,7 +17,10 @@ public:
 
 	void run();
 	void step();
+
 	const Datapath& datapath() const;
+	const Memory& memory() const;
+	const Controller& controller() const;
 };
 
 #endif
