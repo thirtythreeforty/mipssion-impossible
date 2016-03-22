@@ -3,6 +3,7 @@ project(MI)
 
 # Build the emulation library
 add_subdirectory(libmiemu)
+include_directories(libmiemu)
 
 # Build the emulator shell wrapper and link with the emulation lib
 add_executable(emulator emulator/emulator.cpp)
