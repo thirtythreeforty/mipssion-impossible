@@ -1,4 +1,4 @@
-project(miemu)
+project(libmiemu CXX)
 
 # Build the library
 add_library(libmiemu
@@ -8,3 +8,4 @@ add_library(libmiemu
 	datapath.cpp
 	memory.cpp
 )
+set_property(TARGET libmiemu PROPERTY CXX_STANDARD 14)
