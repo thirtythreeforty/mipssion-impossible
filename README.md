@@ -1,4 +1,4 @@
-This is microarchitecture-level emulator for the MIPSsion Impossible processor, a MIPS-style 16-bit processor.
+This is a microarchitecture-level emulator for the MIPSsion Impossible processor, a MIPS-style 16-bit processor.
 
 ## Cloning
 Make sure you get the Google Tests submodule as well by using `git clone --recursive`, or you'll get an error when you try to build.
