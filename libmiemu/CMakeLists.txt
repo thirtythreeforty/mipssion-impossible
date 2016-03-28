@@ -7,5 +7,12 @@ add_library(libmiemu
 	controller.cpp
 	datapath.cpp
 	program_memory.cpp
+
+	datapath/IF.cpp
+	datapath/ID.cpp
+	datapath/EX.cpp
+	datapath/MEM.cpp
+	datapath/register_file.cpp
+	datapath/alu.cpp
 )
 set_property(TARGET libmiemu PROPERTY CXX_STANDARD 14)
