@@ -6,7 +6,10 @@
 class Memory
 {
 public:
-	std::size_t size() const { return 512; }
+	std::size_t size() const;
+
+	void set(uint16_t location, uint16_t data);
+	uint16_t get(uint16_t location) const;
 };
 
 #endif
