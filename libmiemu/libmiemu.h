@@ -2,7 +2,7 @@
 #define LIBMIEMU_H
 
 #include "datapath.h"
-#include "memory.h"
+#include "program_memory.h"
 #include "controller.h"
 
 class Emulator

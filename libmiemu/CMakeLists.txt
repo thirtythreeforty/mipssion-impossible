@@ -6,6 +6,6 @@ add_library(libmiemu
 
 	controller.cpp
 	datapath.cpp
-	memory.cpp
+	program_memory.cpp
 )
 set_property(TARGET libmiemu PROPERTY CXX_STANDARD 14)

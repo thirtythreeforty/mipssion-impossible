@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "memory.h"
+#include "program_memory.h"
 
 TEST(memory, memory_sane)
 {
