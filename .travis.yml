@@ -1,0 +1,9 @@
+language: cpp
+sudo: required
+dist: trusty
+
+script:
+  - mkdir build/ && cd build/
+  - cmake ..
+  - make
+  - tests/mitests
