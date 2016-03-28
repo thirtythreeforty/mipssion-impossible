@@ -35,7 +35,11 @@ TEST(memory, memory_invalid_location)
 	EXPECT_THROW(mem.set(expected_mem_size, 0), std::out_of_range);
 	EXPECT_THROW(mem.get(expected_mem_size), std::out_of_range);
 
-	// But obviously these should work
-	EXPECT_NO_THROW(mem.set(expected_mem_size - 1, 0));
-	EXPECT_NO_THROW(mem.get(expected_mem_size - 1));
+	// Must write a whole word at at time, so this shouldn't work either
+	EXPECT_THROW(mem.set(expected_mem_size - 1, 0), std::out_of_range);
+	EXPECT_THROW(mem.get(expected_mem_size - 1), std::out_of_range);
+
+	// But these should work
+	EXPECT_NO_THROW(mem.set(expected_mem_size - 2, 0));
+	EXPECT_NO_THROW(mem.get(expected_mem_size - 2));
 }
