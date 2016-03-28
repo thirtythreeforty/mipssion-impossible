@@ -21,6 +21,26 @@ TEST(alu, alu_sub) {
 	EXPECT_EQ(4 - 2, alu.data_out());
 }
 
+TEST(alu, alu_flags) {
+	ALU alu;
+
+	// We have some extra cases to check here, because branches use
+	// the Z and C flags
+	alu.signals_in(ALUOp::Subtract, 2, 4);
+	alu.tick();
+	alu.tock();
+	EXPECT_EQ(uint16_t(2 - 4), alu.data_out());
+	EXPECT_EQ(0, alu.z_out());
+	EXPECT_EQ(1, alu.c_out());
+
+	alu.signals_in(ALUOp::Subtract, 2, 2);
+	alu.tick();
+	alu.tock();
+	EXPECT_EQ(uint16_t(2 - 2), alu.data_out());
+	EXPECT_EQ(1, alu.z_out());
+	EXPECT_EQ(0, alu.c_out());
+}
+
 TEST(alu, shift_left) {
 	ALU alu;
 
