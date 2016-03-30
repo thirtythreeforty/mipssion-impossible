@@ -33,7 +33,7 @@ TEST(regfile, WriteEnable) {
 		regfile.tock();
 
 		// The following should overwrite nothing
-		regfile.signals_in(0, 0, false, 0, 0);
+		regfile.signals_in(0, 0, false, i, 0);
 		regfile.tick();
 		regfile.tock();
 	}
