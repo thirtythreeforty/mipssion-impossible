@@ -36,6 +36,9 @@ void RegisterFile::tick()
 void RegisterFile::tock()
 {
 	_registers[_write_reg] = _write_data;
+
+	// Reread outputs
+	tick();
 }
 
 uint16_t RegisterFile::data1_out() const
