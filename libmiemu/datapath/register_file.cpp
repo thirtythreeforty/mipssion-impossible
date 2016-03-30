@@ -2,6 +2,7 @@
 
 void RegisterFile::signals_in(uint8_t read1,
 	                          uint8_t read2,
+	                          bool write,
 	                          uint8_t write_reg,
 	                          uint16_t write_data)
 {
