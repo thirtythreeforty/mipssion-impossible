@@ -1,7 +1,7 @@
 #ifndef MEMORY_H
 #define MEMORY_H
 
-#include <cstdint>
+#include <cstring>
 
 class Memory
 {
