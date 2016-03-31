@@ -29,18 +29,15 @@ void RegisterFile::signals_in(uint8_t read1,
 
 void RegisterFile::tick()
 {
+	if(_write) {
+		_registers[_write_reg] = _write_data;
+	}
 	_data1_out = _registers[_read1];
 	_data2_out = _registers[_read2];
 }
 
 void RegisterFile::tock()
 {
-	if(_write) {
-		_registers[_write_reg] = _write_data;
-
-		// Reread outputs
-		tick();
-	}
 }
 
 uint16_t RegisterFile::data1_out() const

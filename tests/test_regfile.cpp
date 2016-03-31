@@ -47,7 +47,7 @@ TEST(regfile, WriteEnable) {
 	}
 }
 
-TEST(regfile, ReadBeforeWrite) {
+TEST(regfile, WriteBeforeRead) {
 	RegisterFile regfile;
 
 	// Store 42 in a register
@@ -55,11 +55,9 @@ TEST(regfile, ReadBeforeWrite) {
 	regfile.tick();
 	regfile.tock();
 
-	// Overwrite with 6*9. 42 should still be accessible until after tock
+	// Overwrite with 6*9. Should be readable after tick.
 	regfile.signals_in(0, 0, true, 0, 6 * 9);
 	regfile.tick();
-	EXPECT_EQ(42, regfile.data1_out());
-	regfile.tock();
 	EXPECT_EQ(6 * 9, regfile.data1_out());
 }
 
