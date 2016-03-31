@@ -14,4 +14,5 @@ void ID::tock()
 
 IDEX ID::signals_out() const
 {
+	return {};
 }

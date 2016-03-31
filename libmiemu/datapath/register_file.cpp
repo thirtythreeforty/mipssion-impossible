@@ -17,9 +17,11 @@ void RegisterFile::tock()
 
 uint16_t RegisterFile::data1_out() const
 {
+	return 0;
 }
 
 uint16_t RegisterFile::data2_out() const
 {
+	return 0;
 }
 

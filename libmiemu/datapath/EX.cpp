@@ -14,4 +14,5 @@ void EX::tock()
 
 EXMEM EX::signals_out() const
 {
+	return {};
 }
