@@ -14,4 +14,5 @@ void MEM::tock()
 
 MEMWB MEM::signals_out() const
 {
+	return {};
 }

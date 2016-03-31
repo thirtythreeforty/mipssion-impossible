@@ -1,6 +1,7 @@
 #ifndef REGISTER_FILE_H
 #define REGISTER_FILE_H
 
+#include <cstdint>
 #include <tuple>
 
 class RegisterFile
