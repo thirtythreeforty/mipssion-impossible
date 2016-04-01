@@ -16,6 +16,7 @@ public:
 	uint16_t get_pc() const;
 
 	void signals_in(uint16_t new_pc_address);
+	void control_signals_in(const IFControls& controls);
 	void tick(const Memory&);
 	void tock(const Memory&);
 	IFID signals_out() const;

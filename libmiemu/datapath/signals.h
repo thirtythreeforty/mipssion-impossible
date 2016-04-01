@@ -13,6 +13,11 @@ enum class ALUOp {
 	Xor,
 };
 
+struct IFControls {
+	// If false, use PC + 2
+	bool use_new_address;
+};
+
 struct EXControls {
 	bool alu_src;
 	bool branch_gt;
@@ -32,6 +37,7 @@ struct WBControls {
 };
 
 struct Controls {
+	IFControls if_controls;
 	EXControls ex_controls;
 	MEMControls mem_controls;
 	WBControls wb_controls;
@@ -39,6 +45,7 @@ struct Controls {
 
 struct IFID {
 	uint16_t instruction;
+	uint16_t pc_plus_2;
 };
 
 struct IDEX {
