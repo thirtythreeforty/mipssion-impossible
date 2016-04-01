@@ -12,6 +12,7 @@ class ID
 	void tick();
 	void tock();
 	IDEX signals_out() const;
+	uint16_t new_pc_address_out() const;
 };
 
 #endif

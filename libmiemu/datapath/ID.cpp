@@ -16,3 +16,8 @@ IDEX ID::signals_out() const
 {
 	return {};
 }
+
+uint16_t ID::new_pc_address_out() const
+{
+	return 0;
+}
