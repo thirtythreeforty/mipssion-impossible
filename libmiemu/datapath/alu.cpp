@@ -18,6 +18,22 @@ void ALU::tick()
 		break;
 	case ALUOp::Subtract:
 		_output = _data1 - _data2;
+		if (_data1 < _data2)
+		{
+			_cflag = 1;
+		}
+		else
+		{
+			_cflag = 0;
+		}
+		if (_output == 0)
+		{
+			_zflag = 1;
+		}
+		else 
+		{
+			_zflag = 0;
+		}
 		break;
 	case ALUOp::ShiftLeft:
 		_output = _data1 << _data2;
@@ -49,10 +65,10 @@ uint16_t ALU::data_out()
 
 bool ALU::z_out()
 {
-	return false;
+	return _zflag;
 }
 
 bool ALU::c_out()
 {
-	return false;
+	return _cflag;
 }
