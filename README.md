@@ -5,7 +5,7 @@ Make sure you get the Google Tests submodule as well by using `git clone --recur
 Alternatively, if you've already cloned the repository, you can use `git submodule update --init` to clone the submodule.
 
 ## Compiling
-![Travis CI](https://travis-ci.org/thirtythreeforty/mipssion-impossible.svg?branch=master)
+![Travis CI](https://travis-ci.org/thirtythreeforty/mipssion-impossible.svg)
 
 To build, you'll need to ensure you have CMake 3.5 or better installed.
 You also need a relatively recent compiler, one that has support for C++14, such as GCC 5.x or Visual Studio 2015.
