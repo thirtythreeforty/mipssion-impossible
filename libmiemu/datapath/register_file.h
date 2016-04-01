@@ -2,6 +2,7 @@
 #define REGISTER_FILE_H
 
 #include <array>
+#include <cstdint>
 #include <tuple>
 
 class RegisterFile
