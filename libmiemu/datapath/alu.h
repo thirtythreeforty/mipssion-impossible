@@ -7,6 +7,14 @@
 
 class ALU
 {
+	ALUOp _op;
+	uint16_t _data1;
+	uint16_t _data2;
+
+	uint16_t _output;
+	int _zflag;
+	int _cflag;
+
 public:
 	void signals_in(ALUOp, uint16_t data1, uint16_t data2);
 	void tick();
