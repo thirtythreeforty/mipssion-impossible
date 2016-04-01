@@ -43,6 +43,10 @@ struct Controls {
 	WBControls wb_controls;
 };
 
+struct ControlInputs {
+	uint16_t instruction;
+};
+
 struct IFID {
 	uint16_t instruction;
 	uint16_t pc_plus_2;
