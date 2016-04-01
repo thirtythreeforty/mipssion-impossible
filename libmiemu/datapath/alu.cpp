@@ -17,16 +17,22 @@ void ALU::tick()
 		_output = _data1 + _data2;
 		break;
 	case ALUOp::Subtract:
+		_output = _data1 - _data2;
 		break;
 	case ALUOp::ShiftLeft:
+		_output = _data1 << _data2;
 		break;
 	case ALUOp::ShiftRight:
+		_output = _data1 >> _data2;
 		break;
 	case ALUOp::And:
+		_output = _data1 & _data2;
 		break;
 	case ALUOp::Or:
+		_output = _data1 | _data2;
 		break;
 	case ALUOp::Xor:
+		_output = _data1 ^ _data2;
 		break;
 
 	}
