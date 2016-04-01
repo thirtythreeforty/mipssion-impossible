@@ -46,9 +46,6 @@ struct IDEX {
 	MEMControls mem_controls;
 	WBControls wb_controls;
 
-	uint16_t jump_addr;
-	uint16_t pc_plus_2;
-
 	uint16_t data1;
 	uint16_t data2;
 
@@ -62,7 +59,6 @@ struct EXMEM {
 	MEMControls mem_controls;
 	WBControls wb_controls;
 
-	uint16_t new_pc_address;
 	uint16_t alu_output;
 	uint16_t data2;
 
@@ -73,7 +69,6 @@ struct EXMEM {
 struct MEMWB {
 	WBControls wb_controls;
 
-	uint16_t new_pc_address;
 	uint16_t memory_data;
 	uint16_t alu_output;
 

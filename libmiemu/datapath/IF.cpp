@@ -10,7 +10,7 @@ uint16_t IF::get_pc() const
 	return 0;
 }
 
-void IF::signals_in(const MEMWB&)
+void IF::signals_in(uint16_t new_pc_address)
 {
 }
 
