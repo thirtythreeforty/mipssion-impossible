@@ -29,7 +29,7 @@ void RegisterFile::signals_in(uint8_t read1,
 
 void RegisterFile::tick()
 {
-	if(_write) {
+	if(_write && _write_reg != 0) {
 		_registers[_write_reg] = _write_data;
 	}
 	_data1_out = _registers[_read1];
