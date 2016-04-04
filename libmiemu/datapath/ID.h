@@ -8,6 +8,7 @@ class ID
 {
 	RegisterFile _register_file;
 
+public:
 	void signals_in(const IFID&, uint8_t write_reg, uint16_t write_data);
 	void tick();
 	void tock();
