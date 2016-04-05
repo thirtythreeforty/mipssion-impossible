@@ -90,12 +90,48 @@ TEST(ID, WriteRegDecode)
 {
 	ID id;
 	IFID ifid;
-	for(int i = 0; i < 16; ++i) {
-		ifid.instruction = inst::addi(i, DONTCARE, DONTCARE);
-		id.signals_in(ifid, 0, 0);
-		id.tick();
-		id.tock();
-		ASSERT_EQ(i, id.signals_out().write_reg);
+	const std::array<uint16_t, 10> should_set_writereg = {
+		inst::addi(1, DONTCARE, DONTCARE),
+		inst::add(1, DONTCARE, DONTCARE),
+		/*
+		inst::sub(1, DONTCARE, DONTCARE),
+		inst::and_(1, DONTCARE, DONTCARE),
+		inst::or_(1, DONTCARE, DONTCARE),
+		inst::xor_(1, DONTCARE, DONTCARE),
+		inst::sll(1, DONTCARE, DONTCARE),
+		inst::srl(1, DONTCARE, DONTCARE),
+		*/
+		inst::lw(1, DONTCARE, DONTCARE),
+		inst::lbi(1, DONTCARE),
+	};
+
+	const std::array<uint16_t, 6> dont_set_writereg = {
+		inst::blt(1, DONTCARE, DONTCARE),
+		inst::j(0xC0DE),
+		//inst::jl(0xCODE),
+		//inst::jr(),
+		inst::beq(1, DONTCARE, DONTCARE),
+		inst::sw(1, DONTCARE, DONTCARE),
+	};
+
+	for(const auto inst: should_set_writereg) {
+		for(int i = 0; i < 16; ++i) {
+			ifid.instruction = inst;
+			id.signals_in(ifid, 0, 0);
+			id.tick();
+			id.tock();
+			ASSERT_EQ(i, id.signals_out().write_reg);
+		}
+	}
+
+	for(const auto inst: dont_set_writereg) {
+		for(int i = 0; i < 16; ++i) {
+			ifid.instruction = inst;
+			id.signals_in(ifid, 0, 0);
+			id.tick();
+			id.tock();
+			ASSERT_EQ(0, id.signals_out().write_reg);
+		}
 	}
 }
 
