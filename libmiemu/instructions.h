@@ -4,9 +4,27 @@
 #include <cassert>
 #include <cstdint>
 
+namespace reg
+{
+	enum {
+		zero = 0,
+		v0,
+		v1,
+		v2,
+		v3,
+		t0,
+		t1,
+		t2,
+		t3,
+		a0,
+		a1,
+		a2,
+		a3,
+	};
+}
+
 namespace inst
 {
-
 	namespace
 	{
 		constexpr uint16_t rtype(const uint8_t opcode, const uint8_t write_reg, const uint8_t reg1, const uint8_t reg2) {
