@@ -13,7 +13,7 @@ namespace inst
 			return (opcode << 12) | (write_reg << 8) | (reg1 << 4) | (reg2 << 0);
 		}
 
-		constexpr uint16_t jtype(const uint8_t opcode, const uint8_t address) {
+		constexpr uint16_t jtype(const uint8_t opcode, const uint16_t address) {
 			return (opcode << 12) | (address >> 1);
 		}
 
