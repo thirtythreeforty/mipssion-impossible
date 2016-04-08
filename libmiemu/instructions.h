@@ -43,7 +43,7 @@ namespace inst
 
 constexpr uint16_t addi(const uint8_t write_reg, const uint8_t read_reg, const uint8_t constant)
 {
-	return itype(0x0, write_reg, read_reg, constant);
+	return itype(0x0, constant, read_reg, write_reg);
 }
 
 constexpr uint16_t add(const uint8_t write_reg, const uint8_t reg1, const uint8_t reg2)
@@ -82,7 +82,7 @@ constexpr uint16_t sw(const uint8_t read_reg, const uint8_t addr_reg, const uint
 
 constexpr uint16_t lbi(const uint8_t reg, const uint8_t constant)
 {
-	return itype(0xF, (constant << 4) & 0xF, constant & 0xF, reg);
+	return itype(0xF, (constant >> 4) & 0xF, constant & 0xF, reg);
 }
 
 }
