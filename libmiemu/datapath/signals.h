@@ -18,11 +18,15 @@ struct IFControls {
 	bool use_new_address;
 };
 
+struct IDControls {
+	bool reg_dst;
+	bool branch_z;
+	bool branch_gt;
+	bool jump;
+};
+
 struct EXControls {
 	bool alu_src;
-	bool branch_gt;
-	bool branch_z;
-	bool jump;
 
 	ALUOp alu_op;
 };
@@ -38,6 +42,7 @@ struct WBControls {
 
 struct Controls {
 	IFControls if_controls;
+	IDControls id_controls;
 	EXControls ex_controls;
 	MEMControls mem_controls;
 	WBControls wb_controls;
