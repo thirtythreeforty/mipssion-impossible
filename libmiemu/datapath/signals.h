@@ -21,7 +21,7 @@ struct IFControls {
 struct IDControls {
 	bool reg_dst;
 	bool branch_z;
-	bool branch_gt;
+	bool branch_lt;
 	bool jump;
 };
 
