@@ -8,6 +8,9 @@ class ID
 {
 	RegisterFile _register_file;
 
+	Controls _controls;
+	IFID _ifid;
+
 public:
 	void signals_in(const IFID&, const Controls&, uint8_t write_reg, uint16_t write_data);
 	void tick();
