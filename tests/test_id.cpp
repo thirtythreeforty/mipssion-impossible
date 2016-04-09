@@ -175,10 +175,8 @@ TEST(ID, WriteDataSignExtend)
 	IFID ifid;
 	Controls ctrl;
 
-	const std::array<uint16_t (*)(const uint8_t, const uint8_t, const uint8_t), 5> itypes = {
+	const std::array<uint16_t (*)(const uint8_t, const uint8_t, const uint8_t), 3> itypes = {
 		inst::addi,
-		inst::blt,
-		inst::beq,
 		inst::lw,
 		inst::sw,
 		// Test lbi separately
@@ -199,7 +197,7 @@ TEST(ID, WriteDataSignExtend)
 			id.signals_in(ifid, ctrl, 0, 0);
 			id.tick();
 			id.tock();
-			ASSERT_EQ(-i, id.signals_out().write_data);
+			ASSERT_EQ((uint16_t)-i, id.signals_out().write_data);
 		}
 	}
 }
