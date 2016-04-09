@@ -5,10 +5,10 @@ RegisterFile::RegisterFile()
 {}
 
 void RegisterFile::signals_in(uint8_t read1,
-	                          uint8_t read2,
-	                          bool write,
-	                          uint8_t write_reg,
-	                          uint16_t write_data)
+                              uint8_t read2,
+                              bool write,
+                              uint8_t write_reg,
+                              uint16_t write_data)
 {
 	if(read1 >= _registers.size()) {
 		throw std::out_of_range("read1 out of bounds");
@@ -29,7 +29,7 @@ void RegisterFile::signals_in(uint8_t read1,
 
 void RegisterFile::tick()
 {
-	if(_write) {
+	if(_write && _write_reg != 0) {
 		_registers[_write_reg] = _write_data;
 	}
 	_data1_out = _registers[_read1];
