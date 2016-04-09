@@ -22,13 +22,12 @@ TEST(InstructionFetch, ProgramCounterSyncs)
 	controls.use_new_address = true;
 
 	// Set PC to zero
-	ifetch.signals_in(0);
-	ifetch.control_signals_in(controls);
+	ifetch.signals_in(0, controls);
 	ifetch.tick(mem);
 	ifetch.tock(mem);
 
 	controls.use_new_address = false;
-	ifetch.control_signals_in(controls);
+	ifetch.signals_in(0, controls);
 
 	for(uint16_t pc_address = 0; pc_address < 10; pc_address += 2) {
 		ifetch.tick(mem);
@@ -48,10 +47,9 @@ TEST(InstructionFetch, MemoryFetch)
 
 	IFControls controls = {};
 	controls.use_new_address = true;
-	ifetch.control_signals_in(controls);
 
 	for(uint16_t new_pc_address = 0; new_pc_address < mem.size(); new_pc_address += 2) {
-		ifetch.signals_in(new_pc_address);
+		ifetch.signals_in(new_pc_address, controls);
 		ifetch.tick(mem);
 		ifetch.tock(mem);
 

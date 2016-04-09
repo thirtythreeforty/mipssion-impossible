@@ -10,11 +10,7 @@ uint16_t IF::get_pc() const
 	return 0;
 }
 
-void IF::signals_in(uint16_t new_pc_address)
-{
-}
-
-void IF::control_signals_in(const IFControls& controls)
+void IF::signals_in(uint16_t new_pc_address, const IFControls& controls)
 {
 }
 
