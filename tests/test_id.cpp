@@ -13,8 +13,11 @@ TEST(ID, JumpPCAddress)
 	ifid.pc_plus_2 = 0xEEEE;
 	ifid.instruction = inst::j(0x0010);
 
+	Controls ctrl;
+	ctrl.id_controls.jump = true;
+
 	ID id;
-	id.signals_in(ifid, 0, 0);
+	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
 
@@ -26,15 +29,17 @@ TEST(ID, RegistersWrite)
 {
 	ID id;
 	IFID ifid;
+	Controls ctrl;
+
 	for(int i = 1; i < 16; ++i) {
-		id.signals_in(ifid, i, i);
+		id.signals_in(ifid, ctrl, i, i);
 		id.tick();
 		id.tock();
 	}
 
 	for(int i = 1; i < 16; ++i) {
 		ifid.instruction = inst::add(0, i, i);
-		id.signals_in(ifid, 0, 0);
+		id.signals_in(ifid, ctrl, 0, 0);
 		id.tick();
 		id.tock();
 		ASSERT_EQ(i, id.signals_out().data1);
@@ -48,39 +53,50 @@ TEST(ID, BranchPCAddress)
 	IFID ifid;
 	ifid.pc_plus_2 = 0xC0DE;
 
-	id.signals_in(ifid, 1, 1);
+	Controls ctrl;
+
+	id.signals_in(ifid, ctrl, 1, 1);
 	id.tick();
 	id.tock();
-	id.signals_in(ifid, 2, 2);
+	id.signals_in(ifid, ctrl, 2, 2);
 	id.tick();
 	id.tock();
 
 	// This should not "branch"
 	ifid.instruction = inst::blt(2, 1, 4);
+	ctrl.id_controls.branch_z = false;
+	ctrl.id_controls.branch_lt = true;
+	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2, id.new_pc_address_out());
 
 	// This SHOULD "branch"
 	ifid.instruction = inst::blt(1, 2, 4);
+	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2 + 4, id.new_pc_address_out());
 
 	// This should not "branch"
 	ifid.instruction = inst::beq(2, 1, 4);
+	ctrl.id_controls.branch_z = true;
+	ctrl.id_controls.branch_lt = false;
+	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2, id.new_pc_address_out());
 
 	// This SHOULD "branch"
 	ifid.instruction = inst::beq(0, 0, 4);
+	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2 + 4, id.new_pc_address_out());
 
 	// This branches backward by 2
 	ifid.instruction = inst::beq(0, 0, 0xE);
+	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2 - 2, id.new_pc_address_out());
@@ -90,17 +106,20 @@ TEST(ID, WriteRegDecode)
 {
 	ID id;
 	IFID ifid;
+	Controls ctrl;
+
+	/* TODO: move this test to the controller where it belongs
 	const std::array<uint16_t, 10> should_set_writereg = {
 		inst::addi(1, DONTCARE, DONTCARE),
 		inst::add(1, DONTCARE, DONTCARE),
-		/*
+		/ *
 		inst::sub(1, DONTCARE, DONTCARE),
 		inst::and_(1, DONTCARE, DONTCARE),
 		inst::or_(1, DONTCARE, DONTCARE),
 		inst::xor_(1, DONTCARE, DONTCARE),
 		inst::sll(1, DONTCARE, DONTCARE),
 		inst::srl(1, DONTCARE, DONTCARE),
-		*/
+		* /
 		inst::lw(1, DONTCARE, DONTCARE),
 		inst::lbi(1, DONTCARE),
 	};
@@ -117,6 +136,7 @@ TEST(ID, WriteRegDecode)
 	for(const auto inst: should_set_writereg) {
 		for(int i = 0; i < 16; ++i) {
 			ifid.instruction = inst;
+
 			id.signals_in(ifid, 0, 0);
 			id.tick();
 			id.tock();
@@ -133,12 +153,28 @@ TEST(ID, WriteRegDecode)
 			ASSERT_EQ(0, id.signals_out().write_reg);
 		}
 	}
+	*/
+
+	ifid.instruction = inst::add(reg::v0, DONTCARE, DONTCARE);
+	ctrl.id_controls.reg_write = true;
+	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
+	id.tick();
+	id.tock();
+	EXPECT_EQ(reg::v0, id.signals_out().write_reg);
+
+	ctrl.id_controls.reg_write = false;
+	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
+	id.tick();
+	id.tock();
+	EXPECT_EQ(reg::zero, id.signals_out().write_reg);
 }
 
 TEST(ID, WriteDataSignExtend)
 {
 	ID id;
 	IFID ifid;
+	Controls ctrl;
+
 	const std::array<uint16_t (*)(const uint8_t, const uint8_t, const uint8_t), 5> itypes = {
 		inst::addi,
 		inst::blt,
@@ -151,7 +187,7 @@ TEST(ID, WriteDataSignExtend)
 	for(const auto& itype: itypes) {
 		for(int i = 0; i < 0x8; ++i) {
 			ifid.instruction = itype(DONTCARE, DONTCARE, i);
-			id.signals_in(ifid, 0, 0);
+			id.signals_in(ifid, ctrl, 0, 0);
 			id.tick();
 			id.tock();
 			ASSERT_EQ(i, id.signals_out().write_data);
@@ -160,7 +196,7 @@ TEST(ID, WriteDataSignExtend)
 		// Must sign-extend if constant is 0x8 thru 0xF
 		for(int i = 0x8; i < 0xF; ++i) {
 			ifid.instruction = inst::addi(DONTCARE, DONTCARE, i);
-			id.signals_in(ifid, 0, 0);
+			id.signals_in(ifid, ctrl, 0, 0);
 			id.tick();
 			id.tock();
 			ASSERT_EQ(-i, id.signals_out().write_data);

@@ -23,6 +23,7 @@ struct IDControls {
 	bool branch_z;
 	bool branch_lt;
 	bool jump;
+	bool reg_write;
 };
 
 struct EXControls {
@@ -37,7 +38,6 @@ struct MEMControls {
 
 struct WBControls {
 	bool mem_to_reg;
-	bool reg_write;
 };
 
 struct Controls {
