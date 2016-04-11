@@ -29,9 +29,9 @@ TEST(Controller, AssertsWriteReg)
 
 	const std::array<uint16_t, 4> dont_set_writereg = {
 		inst::blt(1, DONTCARE, DONTCARE),
-		inst::j(0xC0DE),
+		inst::j(0x00DE),
 		/*
-		inst::jl(0xCODE),
+		inst::jl(0x0ODE),
 		inst::jr(),
 		*/
 		inst::beq(1, DONTCARE, DONTCARE),
@@ -40,11 +40,12 @@ TEST(Controller, AssertsWriteReg)
 
 	for(const auto inst: should_set_writereg) {
 		ctrl.signals_in(inst);
-		EXPECT_EQ(1, ctrl.controls_out().id_controls.reg_write);
+		EXPECT_EQ(1, ctrl.controls_out().id_controls.reg_write) << "Instruction is " << std::hex << inst;
 	}
 
+	std::cout << "Testing dont_set_writereg..." << std::endl;
 	for(const auto inst: dont_set_writereg) {
 		ctrl.signals_in(inst);
-		EXPECT_EQ(0, ctrl.controls_out().id_controls.reg_write);
+		EXPECT_EQ(0, ctrl.controls_out().id_controls.reg_write) << "Instruction is " << std::hex << inst;
 	}
 }
