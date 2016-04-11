@@ -30,5 +30,5 @@ void IF::tock(const Memory&)
 
 IFID IF::signals_out() const
 {
-	return {signals_o};
+	return signals_o;
 }
