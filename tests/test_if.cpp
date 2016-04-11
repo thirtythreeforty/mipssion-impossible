@@ -26,19 +26,14 @@ TEST(InstructionFetch, ProgramCounterSyncs)
 	ifetch.tick(mem);
 	ifetch.tock(mem);
 
-	//<AH> Not reseting PC to 0 causes the test to fail
-	//controls.use_new_address = false;
-	//ifetch.signals_in(0, controls);
-
-	controls.use_new_address = true;
+	controls.use_new_address = false;
 	ifetch.signals_in(0, controls);
-	//</AH>
 
 	for(uint16_t pc_address = 0; pc_address < 10; pc_address += 2) {
+		ASSERT_EQ(pc_address + 2, ifetch.signals_out().pc_plus_2);
+
 		ifetch.tick(mem);
 		ifetch.tock(mem);
-
-		ASSERT_EQ(pc_address + 2, ifetch.signals_out().pc_plus_2);
 	}
 }
 
