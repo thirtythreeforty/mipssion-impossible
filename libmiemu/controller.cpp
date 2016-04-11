@@ -1,9 +1,27 @@
 #include "controller.h"
 
+#define ADDI 0b0000
+#define ADD 0b0001
+#define SUB 0b0010
+#define AND 0b0011
+#define OR 0b0100
+#define XOR 0b0101
+#define SLL 0b0110
+#define SRL 0b0111
+#define BLT 0b1000
+#define J 0b1001
+#define JL 0b1010
+#define JR 0b1011
+#define BEQ 0b1100
+#define LW 0b1101
+#define SW 0b1110
+#define LBI 0b1111
+
+#define DONT_CARE 0
+
 void Controller::signals_in(uint16_t instruction)
 {
-	_instruction = instruction;
-	_opcode = _instruction & 0xF000;
+	_opcode = (instruction & 0xF000)>>2;
 }
 
 Controls Controller::controls_out() const
