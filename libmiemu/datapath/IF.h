@@ -9,7 +9,8 @@
 
 class IF
 {
-	uint16_t program_counter;
+	uint16_t program_counter = 0;
+	IFID signals_o;
 
 public:
 	void set_pc(uint16_t);
