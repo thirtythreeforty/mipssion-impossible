@@ -21,7 +21,7 @@
 
 void Controller::signals_in(uint16_t instruction)
 {
-	_opcode = (instruction & 0xF000)>>2;
+	_opcode = (instruction & 0xF000) >> 12;
 }
 
 Controls Controller::controls_out() const
