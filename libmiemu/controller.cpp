@@ -42,8 +42,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 1;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
@@ -64,8 +65,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 1;
+		id_controls.reg_position = 1;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
@@ -86,8 +88,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 1;
+		id_controls.reg_position = 1;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Subtract;
@@ -108,8 +111,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 1;
+		id_controls.reg_position = 1;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::And;
@@ -130,8 +134,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 1;
+		id_controls.reg_position = 1;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Or;
@@ -152,8 +157,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 1;
+		id_controls.reg_position = 1;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Xor;
@@ -174,8 +180,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 1;
+		id_controls.reg_position = 1;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::ShiftLeft;
@@ -196,8 +203,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 1;
+		id_controls.reg_position = 1;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::ShiftRight;
@@ -218,8 +226,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 1;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = DONT_CARE;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 0;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Subtract;
@@ -240,8 +249,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 1;
-		id_controls.reg_dst = DONT_CARE;
+		id_controls.reg_position = DONT_CARE;
 		id_controls.reg_write = 0;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		//ex_controls.alu_op = 1001;
@@ -262,8 +272,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 1;
-		id_controls.reg_dst = DONT_CARE;
+		id_controls.reg_position = DONT_CARE;
 		id_controls.reg_write = 0;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		//ex_controls.alu_op = 1010;
@@ -284,8 +295,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 1;
-		id_controls.reg_dst = DONT_CARE;
+		id_controls.reg_position = DONT_CARE;
 		id_controls.reg_write = 0;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		//ex_controls.alu_op = 1011;
@@ -306,8 +318,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 1;
 		id_controls.jump = 0;
-		id_controls.reg_dst = DONT_CARE;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 0;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Subtract;
@@ -328,8 +341,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 0;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
@@ -350,8 +364,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = DONT_CARE;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 0;
+		id_controls.use_8bit_data = 0;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
@@ -372,8 +387,9 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_dst = 0;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 1;
+		id_controls.use_8bit_data = 1;
 
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
