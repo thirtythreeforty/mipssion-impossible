@@ -159,15 +159,20 @@ TEST(ID, WriteDataLBI)
 {
 	ID id;
 	IFID ifid;
+	Controls ctrl;
+
+	ctrl.id_controls.use_8bit_data = true;
 
 	// Should sign-extend negative
 	ifid.instruction = inst::lbi(DONTCARE, 0xFF);
+	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(0xFFFF, id.signals_out().write_data);
 
 	// Should sign-extend positive
 	ifid.instruction = inst::lbi(DONTCARE, 0x7F);
+	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(0x007F, id.signals_out().write_data);

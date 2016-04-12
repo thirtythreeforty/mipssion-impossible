@@ -24,6 +24,7 @@ struct IDControls {
 	bool branch_lt;
 	bool jump;
 	bool reg_write;
+	bool use_8bit_data;
 };
 
 struct EXControls {

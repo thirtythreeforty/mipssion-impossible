@@ -32,10 +32,19 @@ IDEX ID::signals_out() const
 		? ((_ifid.instruction >> 8) & 0x000F)
 		: 0;
 
-	const uint8_t write_data_bits = (_ifid.instruction >> 8) & 0x000F;
-	const uint16_t write_data = write_data_bits >= 0x8
-		? -write_data_bits
-		: write_data_bits;
+	uint16_t write_data;
+	if(_controls.id_controls.use_8bit_data) {
+		const uint8_t write_data_bits = (_ifid.instruction >> 4) & 0x00FF;
+		write_data = write_data_bits >= 0x80
+			? write_data_bits | 0xFF00
+			: write_data_bits;
+	}
+	else {
+		const uint8_t write_data_bits = (_ifid.instruction >> 8) & 0x000F;
+		write_data = write_data_bits >= 0x8
+			? write_data_bits | 0xFFF0
+			: write_data_bits;
+	}
 
 	return {
 		_controls.ex_controls,
