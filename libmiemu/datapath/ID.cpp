@@ -19,6 +19,9 @@ void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, u
 void ID::tick()
 {
 	_register_file.tick();
+
+	recompute_signals_out();
+	recompute_new_pc_address_out();
 }
 
 void ID::tock()
@@ -27,6 +30,16 @@ void ID::tock()
 }
 
 IDEX ID::signals_out() const
+{
+	return _signals_out;
+}
+
+uint16_t ID::new_pc_address_out() const
+{
+	return _new_pc_address_out;
+}
+
+void ID::recompute_signals_out()
 {
 	const uint8_t write_reg = _controls.id_controls.reg_write
 		? (_controls.id_controls.reg_position
@@ -48,7 +61,7 @@ IDEX ID::signals_out() const
 			: write_data_bits;
 	}
 
-	return {
+	_signals_out = {
 		_controls.ex_controls,
 		_controls.mem_controls,
 		_controls.wb_controls,
@@ -63,24 +76,24 @@ IDEX ID::signals_out() const
 	};
 }
 
-uint16_t ID::new_pc_address_out() const
+void ID::recompute_new_pc_address_out()
 {
 	// Get the offset nybble, shift it left, and sign-extend it.
 	const uint8_t offset_bits = (_ifid.instruction << 1) & 0x000F;
 	const int8_t offset = offset_bits >= 0x08 ? offset_bits | 0xF0 : offset_bits;
 
 	if(_controls.id_controls.jump) {
-		return (_ifid.pc_plus_2 & 0xF000) | ((_ifid.instruction & 0x0FFF) << 1);
+		_new_pc_address_out = (_ifid.pc_plus_2 & 0xF000) | ((_ifid.instruction & 0x0FFF) << 1);
 	}
 	else if(_controls.id_controls.branch_z &&
 	        _register_file.data1_out() == _register_file.data2_out()) {
-	    return _ifid.pc_plus_2 + offset;
+	    _new_pc_address_out = _ifid.pc_plus_2 + offset;
 	}
 	else if(_controls.id_controls.branch_lt &&
 	        _register_file.data1_out() < _register_file.data2_out()) {
-	    return _ifid.pc_plus_2 + offset;
+	    _new_pc_address_out = _ifid.pc_plus_2 + offset;
 	}
 	else {
-		return _ifid.pc_plus_2;
+		_new_pc_address_out = _ifid.pc_plus_2;
 	}
 }
