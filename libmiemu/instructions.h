@@ -60,14 +60,14 @@ inline uint16_t blt(const uint8_t reg1, const uint8_t reg2, const uint8_t offset
 {
 	assert(offset <= 0xF);
 	uint8_t extend_off = offset >= 0x8 ? offset | 0xF0 : offset;
-	return itype(0x8, extend_off >> 1, reg2, reg1);
+	return itype(0x8, reg2, reg1, (extend_off >> 1) & 0xF);
 }
 
 inline uint16_t beq(const uint8_t reg1, const uint8_t reg2, const uint8_t offset)
 {
 	assert(offset <= 0xF);
 	uint8_t extend_off = offset >= 0x8 ? offset | 0xF0 : offset;
-	return itype(0xC, extend_off >> 1, reg2, reg1);
+	return itype(0xC, reg2, reg1, (extend_off >> 1) & 0xF);
 }
 
 inline uint16_t lw(const uint8_t write_reg, const uint8_t addr_reg, const uint8_t constant)

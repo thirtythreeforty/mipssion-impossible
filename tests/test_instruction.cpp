@@ -19,12 +19,12 @@ TEST(Instructions, j)
 
 TEST(Instructions, blt)
 {
-	EXPECT_EQ(0x8121, inst::blt(reg::v0, reg::v1, 0x2));
+	EXPECT_EQ(0x8211, inst::blt(reg::v0, reg::v1, 0x2));
 }
 
 TEST(Instructions, beq)
 {
-	EXPECT_EQ(0xC121, inst::beq(reg::v0, reg::v1, 0x2));
+	EXPECT_EQ(0xC211, inst::beq(reg::v0, reg::v1, 0x2));
 }
 
 TEST(Instructions, lw)

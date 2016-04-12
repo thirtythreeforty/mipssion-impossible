@@ -42,7 +42,7 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_position = 1;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 1;
 		id_controls.use_8bit_data = 0;
 
@@ -226,7 +226,7 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 1;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_position = DONT_CARE;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 0;
 		id_controls.use_8bit_data = 0;
 
@@ -318,7 +318,7 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 1;
 		id_controls.jump = 0;
-		id_controls.reg_position = DONT_CARE;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 0;
 		id_controls.use_8bit_data = 0;
 
@@ -364,7 +364,7 @@ Controls Controller::controls_out() const
 		id_controls.branch_lt = 0;
 		id_controls.branch_z = 0;
 		id_controls.jump = 0;
-		id_controls.reg_position = DONT_CARE;
+		id_controls.reg_position = 0;
 		id_controls.reg_write = 0;
 		id_controls.use_8bit_data = 0;
 

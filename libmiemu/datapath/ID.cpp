@@ -5,10 +5,10 @@ void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, u
 	_controls = ctrl;
 	_ifid = ifid;
 
-	const uint8_t read1 = (ctrl.id_controls.reg_position
+	const uint8_t read1 = (ifid.instruction >> 4) & 0x000F;
+	const uint8_t read2 = (ctrl.id_controls.reg_position
 		? ifid.instruction >> 0
 		: ifid.instruction >> 8) & 0x000F;
-	const uint8_t read2 = (ifid.instruction >> 4) & 0x000F;
 
 	// TODO this signal is redundant
 	const bool write = (write_reg != 0);
@@ -66,8 +66,8 @@ IDEX ID::signals_out() const
 uint16_t ID::new_pc_address_out() const
 {
 	// Get the offset nybble, shift it left, and sign-extend it.
-	const uint8_t offset_bits = (_ifid.instruction >> 7) & 0x001E;
-	const int8_t offset = offset_bits >= 0x10 ? offset_bits | 0xE0 : offset_bits;
+	const uint8_t offset_bits = (_ifid.instruction << 1) & 0x000F;
+	const int8_t offset = offset_bits >= 0x08 ? offset_bits | 0xF0 : offset_bits;
 
 	if(_controls.id_controls.jump) {
 		return (_ifid.pc_plus_2 & 0xF000) | ((_ifid.instruction & 0x0FFF) << 1);
