@@ -32,12 +32,14 @@ TEST(ID, RegistersWrite)
 	Controls ctrl;
 
 	for(int i = 1; i < 16; ++i) {
+		ctrl.id_controls.reg_write = true;
 		id.signals_in(ifid, ctrl, i, i);
 		id.tick();
 		id.tock();
 	}
 
 	for(int i = 1; i < 16; ++i) {
+		ctrl.id_controls.reg_write = false;
 		ifid.instruction = inst::add(0, i, i);
 		id.signals_in(ifid, ctrl, 0, 0);
 		id.tick();
