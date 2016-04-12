@@ -150,7 +150,7 @@ TEST(ID, WriteDataSignExtend)
 			id.signals_in(ifid, ctrl, 0, 0);
 			id.tick();
 			id.tock();
-			ASSERT_EQ((uint16_t)-i, id.signals_out().write_data);
+			ASSERT_EQ(i | 0xFFF0, id.signals_out().write_data);
 		}
 	}
 }
