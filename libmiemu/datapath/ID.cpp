@@ -5,7 +5,7 @@ void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, u
 	_controls = ctrl;
 	_ifid = ifid;
 
-	const uint8_t read1 = (ctrl.id_controls.reg_dst
+	const uint8_t read1 = (ctrl.id_controls.reg_position
 		? ifid.instruction >> 0
 		: ifid.instruction >> 8) & 0x000F;
 	const uint8_t read2 = (ifid.instruction >> 4) & 0x000F;
@@ -29,7 +29,9 @@ void ID::tock()
 IDEX ID::signals_out() const
 {
 	const uint8_t write_reg = _controls.id_controls.reg_write
-		? ((_ifid.instruction >> 8) & 0x000F)
+		? (_controls.id_controls.reg_position
+		   ? _ifid.instruction >> 8
+		   : _ifid.instruction) & 0x000F
 		: 0;
 
 	uint16_t write_data;

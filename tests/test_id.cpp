@@ -32,7 +32,7 @@ TEST(ID, RegistersWrite)
 	IFID ifid;
 	Controls ctrl;
 	// for ADD instruction, use these control signals:
-	ctrl.id_controls.reg_dst = true;
+	ctrl.id_controls.reg_position = true;
 	ctrl.id_controls.use_8bit_data = false;
 
 	ctrl.id_controls.reg_write = true;

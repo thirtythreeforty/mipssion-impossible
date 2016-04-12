@@ -19,7 +19,7 @@ struct IFControls {
 };
 
 struct IDControls {
-	bool reg_dst;
+	bool reg_position;
 	bool branch_z;
 	bool branch_lt;
 	bool jump;
