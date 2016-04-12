@@ -30,16 +30,20 @@ TEST(ID, RegistersWrite)
 	ID id;
 	IFID ifid;
 	Controls ctrl;
+	// for ADD instruction, use these control signals:
+	ctrl.id_controls.reg_dst = true;
+	ctrl.id_controls.use_8bit_data = false;
 
+	ctrl.id_controls.reg_write = true;
 	for(int i = 1; i < 16; ++i) {
-		ctrl.id_controls.reg_write = true;
+		ifid.instruction = inst::add(0, i, i);
 		id.signals_in(ifid, ctrl, i, i);
 		id.tick();
 		id.tock();
 	}
 
+	ctrl.id_controls.reg_write = false;
 	for(int i = 1; i < 16; ++i) {
-		ctrl.id_controls.reg_write = false;
 		ifid.instruction = inst::add(0, i, i);
 		id.signals_in(ifid, ctrl, 0, 0);
 		id.tick();
