@@ -2,6 +2,7 @@
 
 #include "datapath/ID.h"
 #include "instructions.h"
+#include "controller.h"
 
 #include <array>
 
@@ -61,6 +62,8 @@ TEST(ID, BranchPCAddress)
 
 	Controls ctrl;
 
+	Controller controller;
+
 	id.signals_in(ifid, ctrl, 1, 1);
 	id.tick();
 	id.tock();
@@ -70,8 +73,8 @@ TEST(ID, BranchPCAddress)
 
 	// This should not "branch"
 	ifid.instruction = inst::blt(2, 1, 4);
-	ctrl.id_controls.branch_z = false;
-	ctrl.id_controls.branch_lt = true;
+	controller.signals_in(ifid.instruction);
+	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
@@ -79,6 +82,8 @@ TEST(ID, BranchPCAddress)
 
 	// This SHOULD "branch"
 	ifid.instruction = inst::blt(1, 2, 4);
+	controller.signals_in(ifid.instruction);
+	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
@@ -86,8 +91,8 @@ TEST(ID, BranchPCAddress)
 
 	// This should not "branch"
 	ifid.instruction = inst::beq(2, 1, 4);
-	ctrl.id_controls.branch_z = true;
-	ctrl.id_controls.branch_lt = false;
+	controller.signals_in(ifid.instruction);
+	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
@@ -95,6 +100,8 @@ TEST(ID, BranchPCAddress)
 
 	// This SHOULD "branch"
 	ifid.instruction = inst::beq(0, 0, 4);
+	controller.signals_in(ifid.instruction);
+	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
@@ -102,6 +109,8 @@ TEST(ID, BranchPCAddress)
 
 	// This branches backward by 2
 	ifid.instruction = inst::beq(0, 0, 0xE);
+	controller.signals_in(ifid.instruction);
+	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0);
 	id.tick();
 	id.tock();
