@@ -21,8 +21,13 @@ On Windows, you could use the CMake GUI and instead generate Visual Studio proje
 Now you should be ready to build!
 
 ## Structure
-The project is currently organized into three main modules: `libmiemu`, the MI emulator library that does all the work, a `miemu` command-line wrapper, and a test framework using Google Tests.
-After you build, you can run `miemu` from the build directory.
+The project is currently organized into three main modules:
+
+- the `libmiemu` emulator library that does all the work
+- the `miemu` command-line wrapper
+- the `tests` unit testing framework using Google Tests.
+
+After you build, you can run `build/miemu` to use the emulator.
 The test binary will be at `build/tests/mitests`; running it will run all unit tests.
 
 ## Resources

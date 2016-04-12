@@ -3,7 +3,7 @@
 #include "datapath/alu.h"
 #include "datapath/signals.h"
 
-TEST(alu, alu_add) {
+TEST(alu, Add) {
 	ALU alu;
 
 	alu.signals_in(ALUOp::Add, 2, 2);
@@ -12,7 +12,7 @@ TEST(alu, alu_add) {
 	EXPECT_EQ(2 + 2, alu.data_out());
 }
 
-TEST(alu, alu_sub) {
+TEST(alu, Sub) {
 	ALU alu;
 
 	alu.signals_in(ALUOp::Subtract, 4, 2);
@@ -21,7 +21,7 @@ TEST(alu, alu_sub) {
 	EXPECT_EQ(4 - 2, alu.data_out());
 }
 
-TEST(alu, alu_flags) {
+TEST(alu, Flags) {
 	ALU alu;
 
 	// We have some extra cases to check here, because branches use
@@ -41,7 +41,7 @@ TEST(alu, alu_flags) {
 	EXPECT_EQ(0, alu.c_out());
 }
 
-TEST(alu, shift_left) {
+TEST(alu, ShiftLeft) {
 	ALU alu;
 
 	alu.signals_in(ALUOp::ShiftLeft, 4, 2);
@@ -50,7 +50,7 @@ TEST(alu, shift_left) {
 	EXPECT_EQ(4 << 2, alu.data_out());
 }
 
-TEST(alu, shift_right) {
+TEST(alu, ShiftRight) {
 	ALU alu;
 
 	alu.signals_in(ALUOp::ShiftRight, 8, 2);
@@ -59,7 +59,7 @@ TEST(alu, shift_right) {
 	EXPECT_EQ(8 >> 2, alu.data_out());
 }
 
-TEST(alu, bitwise_and) {
+TEST(alu, BitwiseAnd) {
 	ALU alu;
 
 	alu.signals_in(ALUOp::And, 37, 42);
@@ -68,7 +68,7 @@ TEST(alu, bitwise_and) {
 	EXPECT_EQ(37 & 42, alu.data_out());
 }
 
-TEST(alu, bitwise_or) {
+TEST(alu, BitwiseOr) {
 	ALU alu;
 
 	alu.signals_in(ALUOp::Or, 37, 42);
@@ -77,7 +77,7 @@ TEST(alu, bitwise_or) {
 	EXPECT_EQ(37 | 42, alu.data_out());
 }
 
-TEST(alu, bitwise_xor) {
+TEST(alu, BitwiseXor) {
 	ALU alu;
 
 	alu.signals_in(ALUOp::Xor, 37, 42);

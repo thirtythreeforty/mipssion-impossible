@@ -6,13 +6,13 @@
 
 const unsigned int expected_mem_size = 1024;
 
-TEST(memory, memory_size)
+TEST(memory, ProperSize)
 {
 	Memory mem;
 	EXPECT_EQ(expected_mem_size, mem.size());
 }
 
-TEST(memory, memory_stores)
+TEST(memory, Store)
 {
 	Memory mem;
 	for(int i = 0; i < expected_mem_size; i += 2) {
@@ -24,7 +24,7 @@ TEST(memory, memory_stores)
 	}
 }
 
-TEST(memory, memory_invalid_location)
+TEST(memory, InvalidLocation)
 {
 	Memory mem;
 
@@ -40,7 +40,7 @@ TEST(memory, memory_invalid_location)
 	EXPECT_NO_THROW(mem.get(expected_mem_size - 2));
 }
 
-TEST(memory, memory_unaligned_access)
+TEST(memory, UnalignedAccess)
 {
 	Memory mem;
 
