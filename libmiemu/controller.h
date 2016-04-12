@@ -3,9 +3,11 @@
 
 #include "datapath/signals.h"
 
+
+
 class Controller
 {
-	uint16_t _instruction;
+	uint8_t _opcode;
 
 public:
 	void signals_in(uint16_t instruction);

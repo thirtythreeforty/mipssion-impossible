@@ -9,14 +9,14 @@
 
 class IF
 {
-	uint16_t program_counter;
+	uint16_t program_counter = 0;
+	IFID signals_o;
 
 public:
 	void set_pc(uint16_t);
 	uint16_t get_pc() const;
 
-	void signals_in(uint16_t new_pc_address);
-	void control_signals_in(const IFControls& controls);
+	void signals_in(uint16_t new_pc_address, const IFControls& controls);
 	void tick(const Memory&);
 	void tock(const Memory&);
 	IFID signals_out() const;

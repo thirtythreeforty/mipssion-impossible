@@ -1,10 +1,13 @@
 project(mitests CXX)
 
 add_executable(mitests
+	test_controller.cpp
+
 	test_memory.cpp
 	test_alu.cpp
 	test_regfile.cpp
 
+	test_if.cpp
 	test_id.cpp
 	test_instruction.cpp
 )
