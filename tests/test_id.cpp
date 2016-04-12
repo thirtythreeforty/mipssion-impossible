@@ -14,8 +14,9 @@ TEST(ID, JumpPCAddress)
 	ifid.pc_plus_2 = 0xEEEE;
 	ifid.instruction = inst::j(0x0010);
 
-	Controls ctrl;
-	ctrl.id_controls.jump = true;
+	Controller controller;
+	controller.signals_in(ifid.instruction);
+	Controls ctrl = controller.controls_out();
 
 	ID id;
 	id.signals_in(ifid, ctrl, 0, 0);
@@ -30,22 +31,25 @@ TEST(ID, RegistersWrite)
 {
 	ID id;
 	IFID ifid;
-	Controls ctrl;
-	// for ADD instruction, use these control signals:
-	ctrl.id_controls.reg_position = true;
-	ctrl.id_controls.use_8bit_data = false;
+	Controller controller;
 
-	ctrl.id_controls.reg_write = true;
 	for(int i = 1; i < 16; ++i) {
 		ifid.instruction = inst::add(0, i, i);
+		controller.signals_in(ifid.instruction);
+		Controls ctrl = controller.controls_out();
+
 		id.signals_in(ifid, ctrl, i, i);
 		id.tick();
 		id.tock();
 	}
 
-	ctrl.id_controls.reg_write = false;
 	for(int i = 1; i < 16; ++i) {
 		ifid.instruction = inst::add(0, i, i);
+		controller.signals_in(ifid.instruction);
+		Controls ctrl = controller.controls_out();
+
+		ctrl.id_controls.reg_write = false;
+
 		id.signals_in(ifid, ctrl, 0, 0);
 		id.tick();
 		id.tock();
@@ -58,11 +62,13 @@ TEST(ID, BranchPCAddress)
 {
 	ID id;
 	IFID ifid;
-	ifid.pc_plus_2 = 0xC0DE;
-
-	Controls ctrl;
 
 	Controller controller;
+
+	ifid.instruction = DONTCARE;
+	ifid.pc_plus_2 = 0xC0DE;
+	controller.signals_in(ifid.instruction);
+	Controls ctrl = controller.controls_out();
 
 	id.signals_in(ifid, ctrl, 1, 1);
 	id.tick();
@@ -120,10 +126,14 @@ TEST(ID, BranchPCAddress)
 TEST(ID, WriteRegDecode)
 {
 	ID id;
-	IFID ifid;
-	Controls ctrl;
 
+	IFID ifid;
 	ifid.instruction = inst::add(reg::v0, DONTCARE, DONTCARE);
+
+	Controller controller;
+	controller.signals_in(ifid.instruction);
+	Controls ctrl = controller.controls_out();
+
 	ctrl.id_controls.reg_write = true;
 	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
 	id.tick();
@@ -141,7 +151,7 @@ TEST(ID, WriteDataSignExtend)
 {
 	ID id;
 	IFID ifid;
-	Controls ctrl;
+	Controller controller;
 
 	const std::array<uint16_t (*)(const uint8_t, const uint8_t, const uint8_t), 3> itypes = {
 		inst::addi,
@@ -153,6 +163,9 @@ TEST(ID, WriteDataSignExtend)
 	for(const auto& itype: itypes) {
 		for(int i = 0; i < 0x8; ++i) {
 			ifid.instruction = itype(DONTCARE, DONTCARE, i);
+			controller.signals_in(ifid.instruction);
+			Controls ctrl = controller.controls_out();
+
 			id.signals_in(ifid, ctrl, 0, 0);
 			id.tick();
 			id.tock();
@@ -162,6 +175,9 @@ TEST(ID, WriteDataSignExtend)
 		// Must sign-extend if constant is 0x8 thru 0xF
 		for(int i = 0x8; i < 0xF; ++i) {
 			ifid.instruction = inst::addi(DONTCARE, DONTCARE, i);
+			controller.signals_in(ifid.instruction);
+			Controls ctrl = controller.controls_out();
+
 			id.signals_in(ifid, ctrl, 0, 0);
 			id.tick();
 			id.tock();
@@ -174,12 +190,13 @@ TEST(ID, WriteDataLBI)
 {
 	ID id;
 	IFID ifid;
-	Controls ctrl;
-
-	ctrl.id_controls.use_8bit_data = true;
+	Controller controller;
 
 	// Should sign-extend negative
 	ifid.instruction = inst::lbi(DONTCARE, 0xFF);
+	controller.signals_in(ifid.instruction);
+	Controls ctrl = controller.controls_out();
+
 	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
 	id.tick();
 	id.tock();
@@ -187,6 +204,9 @@ TEST(ID, WriteDataLBI)
 
 	// Should sign-extend positive
 	ifid.instruction = inst::lbi(DONTCARE, 0x7F);
+	controller.signals_in(ifid.instruction);
+	ctrl = controller.controls_out();
+
 	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
 	id.tick();
 	id.tock();
