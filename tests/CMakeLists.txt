@@ -10,6 +10,8 @@ add_executable(mitests
 	test_if.cpp
 	test_id.cpp
 	test_instruction.cpp
+	test_ex.cpp
+	test_mem.cpp
 )
 set_property(TARGET mitests PROPERTY CXX_STANDARD 14)
 target_link_libraries(mitests gtest gtest_main libmiemu)
