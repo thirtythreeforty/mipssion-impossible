@@ -6,6 +6,10 @@ add_subdirectory(vendor/googletest)
 include_directories(${gtest_SOURCE_DIR}/include)
 enable_testing()
 
+# Set up termcolor
+add_subdirectory(vendor/termcolor)
+include_directories(${termcolor_SOURCE_DIR}/include)
+
 # Build the emulation library
 add_subdirectory(libmiemu)
 include_directories(libmiemu)
