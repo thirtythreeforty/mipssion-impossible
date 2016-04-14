@@ -8,6 +8,7 @@ class EX
 {
 	ALU _alu;
 
+public:
 	void signals_in(const IDEX&);
 	void tick();
 	void tock();
