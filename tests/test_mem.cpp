@@ -25,8 +25,8 @@ TEST(MEM, lw)
 	
 
 	memoryblock.signals_in(exmem);
-	memoryblock.tick();
-	memoryblock.tock();
+	memoryblock.tick(mem);
+	memoryblock.tock(mem);
 
 
 	ASSERT_EQ(0x1234, memoryblock.signals_out().memory_data);
@@ -43,8 +43,8 @@ TEST(MEM, move_to_buffer)
 	exmem.alu_output = 0x0002;
 
 	memoryblock.signals_in(exmem);
-	memoryblock.tick();
-	memoryblock.tock();
+	memoryblock.tick(mem);
+	memoryblock.tock(mem);
 
 	EXPECT_EQ(exmem.alu_output, memoryblock.signals_out().alu_output);
 }
@@ -65,8 +65,8 @@ TEST(MEM, sw)
 
 
 	memoryblock.signals_in(exmem);
-	memoryblock.tick();
-	memoryblock.tock();
+	memoryblock.tick(mem);
+	memoryblock.tock(mem);
 
 	EXPECT_EQ(0x1234, mem.get(0x0002));
 

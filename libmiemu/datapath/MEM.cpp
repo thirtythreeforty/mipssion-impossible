@@ -1,18 +1,27 @@
 #include "MEM.h"
 
-void MEM::signals_in(const EXMEM&)
+void MEM::signals_in(const EXMEM& exmem)
 {
+	_exmem = exmem;
+	_signals_out.alu_output = _exmem.alu_output;
+	_signals_out.wb_controls = _exmem.wb_controls;
+	_signals_out.write_reg = _exmem.write_reg;
 }
 
-void MEM::tick()
+void MEM::tick(const Memory& mem)
 {
+	_signals_out.memory_data = mem.get(_exmem.alu_output);
 }
 
-void MEM::tock()
+void MEM::tock(Memory& mem)
 {
+	if (_exmem.write_reg)
+	{
+		mem.set(_exmem.alu_output, _exmem.write_data);
+	}
 }
 
 MEMWB MEM::signals_out() const
 {
-	return {};
+	return _signals_out;
 }
