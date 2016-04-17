@@ -213,6 +213,28 @@ TEST(ID, WriteDataLBI)
 	EXPECT_EQ(0x007F, id.signals_out().write_data);
 }
 
+TEST(ID, LBIRegisterValues)
+{
+	ID id;
+	IFID ifid;
+	Controller controller;
+
+	// When handling the LBI instruction, The ID stage should emit 0x0000 for
+	// data1 and data2 so the EX stage can add zero to the immediate operand
+	// (of course, this needs the proper commands from the controller).
+	ifid.instruction = inst::lbi(DONTCARE, 0xFF);
+	controller.signals_in(ifid.instruction);
+	Controls ctrl = controller.controls_out();
+
+	// If this isn't handled correctly, the ID stage will read the 0xF register.
+	// So write data there so we can detect that
+	id.signals_in(ifid, ctrl, 0xF, 0xC0DE);
+	id.tick();
+	id.tock();
+	EXPECT_EQ(0, id.signals_out().data1);
+	EXPECT_EQ(0, id.signals_out().data2);
+}
+
 TEST(ID, OutputsChangeOnTick)
 {
 	ID id;

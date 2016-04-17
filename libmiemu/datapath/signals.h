@@ -77,10 +77,10 @@ struct EXMEM {
 	WBControls wb_controls;
 
 	uint16_t alu_output;
-	uint16_t data2;
+	uint16_t write_data;
 
 	uint8_t write_reg;
-	uint16_t write_data;
+	
 };
 
 struct MEMWB {
