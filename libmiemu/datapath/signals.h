@@ -90,7 +90,6 @@ struct MEMWB {
 	uint16_t alu_output;
 
 	uint8_t write_reg;
-	uint16_t write_data;
 };
 
 #endif
