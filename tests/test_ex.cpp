@@ -3,6 +3,7 @@
 #include "datapath/EX.h"
 #include "instructions.h"
 #include "controller.h"
+#include <iostream>
 
 //Use read2 from IDEX if ALUSRC is 0
 TEST(EX, ALUSRCData2)
@@ -14,7 +15,9 @@ TEST(EX, ALUSRCData2)
 
 	idex.data1 = 2;
 	idex.data2 = 4;
-	exControls.alu_src = 0;
+
+	idex.ex_controls.alu_op = ALUOp::Add;
+	idex.ex_controls.alu_src = 0;
 
 	if (!exControls.alu_src)
 	{
@@ -23,6 +26,8 @@ TEST(EX, ALUSRCData2)
 		ex.tock();
 		exmem = ex.signals_out();
 	}
+
+	std::cout << "alu output is " << exmem.alu_output << std::endl;
 	
 	EXPECT_EQ(idex.data2, (exmem.alu_output - idex.data1));
 }
@@ -37,7 +42,8 @@ TEST(EX, ALUSRCConst)
 	
 	idex.data1 = 2;
 	idex.write_data = 4;
-	exControls.alu_src = 1;
+	idex.ex_controls.alu_op = ALUOp::Add;
+	idex.ex_controls.alu_src = 0;
 
 	if (exControls.alu_src)
 	{
@@ -57,6 +63,9 @@ TEST(EX, ALUOP)
 	EXControls exControls;
 	EX ex;
 	EXMEM exmem;
+
+	idex.data1 = 2;
+	idex.data2 = 4;
 
 	exControls.alu_op = ALUOp::Subtract;
 	ex.signals_in(idex);
