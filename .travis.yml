@@ -2,8 +2,12 @@ language: cpp
 sudo: required
 dist: trusty
 
+install:
+  - sudo apt-get update
+  - sudo apt-get install -y valgrind
+
 script:
   - mkdir build/ && cd build/
   - cmake ..
   - make
-  - tests/mitests
+  - valgrind --error-exitcode=1 tests/mitests
