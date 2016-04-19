@@ -12,6 +12,7 @@ add_library(libmiemu
 	datapath/ID.cpp
 	datapath/EX.cpp
 	datapath/MEM.cpp
+	datapath/WB.cpp
 	datapath/register_file.cpp
 	datapath/alu.cpp
 )

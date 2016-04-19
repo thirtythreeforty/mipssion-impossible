@@ -41,6 +41,7 @@ TEST(MEM, move_to_buffer)
 	MEM memoryblock;
 
 	exmem.alu_output = 0x0002;
+	exmem.mem_controls.mem_write = false;
 
 	memoryblock.signals_in(exmem);
 	memoryblock.tick(mem);
