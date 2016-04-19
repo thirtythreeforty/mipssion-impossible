@@ -19,13 +19,11 @@ TEST(EX, ALUSRCData2)
 	idex.ex_controls.alu_op = ALUOp::Add;
 	idex.ex_controls.alu_src = 0;
 
-	if (!exControls.alu_src)
-	{
-		ex.signals_in(idex);
-		ex.tick();
-		ex.tock();
-		exmem = ex.signals_out();
-	}
+	ex.signals_in(idex);
+	ex.tick();
+	ex.tock();
+	exmem = ex.signals_out();
+	
 
 	std::cout << "alu output is " << exmem.alu_output << std::endl;
 	
@@ -45,13 +43,11 @@ TEST(EX, ALUSRCConst)
 	idex.ex_controls.alu_op = ALUOp::Add;
 	idex.ex_controls.alu_src = 1;
 
-	if (exControls.alu_src)
-	{
-		ex.signals_in(idex);
-		ex.tick();
-		ex.tock();
-		exmem = ex.signals_out();
-	}
+	ex.signals_in(idex);
+	ex.tick();
+	ex.tock();
+	exmem = ex.signals_out();
+	
 
 	EXPECT_EQ(idex.write_data, (exmem.alu_output - idex.data1));
 }
@@ -67,7 +63,7 @@ TEST(EX, ALUOP)
 	idex.data1 = 4;
 	idex.data2 = 2;
 
-	exControls.alu_op = ALUOp::Subtract;
+	idex.ex_controls.alu_op = ALUOp::Subtract;
 	idex.ex_controls.alu_src = 0;
 
 	ex.signals_in(idex);
