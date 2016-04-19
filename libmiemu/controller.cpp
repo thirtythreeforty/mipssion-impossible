@@ -19,9 +19,9 @@
 
 #define DONT_CARE 0
 
-void Controller::signals_in(uint16_t instruction)
+void Controller::signals_in(ControlInputs inputs)
 {
-	_opcode = (instruction & 0xF000) >> 12;
+	_opcode = (inputs.instruction & 0xF000) >> 12;
 }
 
 Controls Controller::controls_out() const
