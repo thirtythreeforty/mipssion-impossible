@@ -15,7 +15,7 @@ void MEM::tick(const Memory& mem)
 
 void MEM::tock(Memory& mem)
 {
-	if (_exmem.write_reg)
+	if (_exmem.mem_controls.mem_write)
 	{
 		mem.set(_exmem.alu_output, _exmem.write_data);
 	}
