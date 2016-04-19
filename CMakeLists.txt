@@ -15,7 +15,11 @@ add_subdirectory(libmiemu)
 include_directories(libmiemu)
 
 # Build the emulator shell wrapper and link with the emulation lib
-add_executable(miemu miemu/emulator.cpp)
+add_executable(miemu
+	miemu/emulator.cpp
+	miemu/load.cpp
+	miemu/REPL.cpp
+)
 set_property(TARGET miemu PROPERTY CXX_STANDARD 14)
 target_link_libraries(miemu libmiemu)
 
