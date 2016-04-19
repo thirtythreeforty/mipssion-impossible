@@ -9,7 +9,6 @@
 TEST(EX, ALUSRCData2)
 {
 	IDEX idex;
-	EXControls exControls;
 	EXMEM exmem;
 	EX ex;
 
@@ -23,9 +22,6 @@ TEST(EX, ALUSRCData2)
 	ex.tick();
 	ex.tock();
 	exmem = ex.signals_out();
-	
-
-	std::cout << "alu output is " << exmem.alu_output << std::endl;
 	
 	EXPECT_EQ(idex.data2, (exmem.alu_output - idex.data1));
 }
