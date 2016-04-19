@@ -7,20 +7,14 @@ void EX::signals_in(const IDEX& idex)
 	_excontrols = idex.ex_controls;
 	uint16_t _data2;
 
-	std::cout << "ALU INPUT 1 IS " << _idex.data1 << std::endl;
-	std::cout << "ALU INPUT 2 IS " << _idex.data2 << std::endl;
-
-
 	if (_idex.ex_controls.alu_src == 0) {
-		std::cout << "HERE 1" << std::endl;
 		_data2 = _idex.data2;
 	}
 	
 	if (_excontrols.alu_src == 1) {
-		std::cout << "HERE 2" << std::endl;
-		_data2 = _idex.branch_offset;
+		_data2 = _idex.write_data;
 	}
-	
+
 	
 	_alu.signals_in(_excontrols.alu_op, _idex.data1, _data2);
 	

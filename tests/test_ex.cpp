@@ -43,7 +43,7 @@ TEST(EX, ALUSRCConst)
 	idex.data1 = 2;
 	idex.write_data = 4;
 	idex.ex_controls.alu_op = ALUOp::Add;
-	idex.ex_controls.alu_src = 0;
+	idex.ex_controls.alu_src = 1;
 
 	if (exControls.alu_src)
 	{
@@ -64,10 +64,12 @@ TEST(EX, ALUOP)
 	EX ex;
 	EXMEM exmem;
 
-	idex.data1 = 2;
-	idex.data2 = 4;
+	idex.data1 = 4;
+	idex.data2 = 2;
 
 	exControls.alu_op = ALUOp::Subtract;
+	idex.ex_controls.alu_src = 0;
+
 	ex.signals_in(idex);
 	ex.tick();
 	ex.tock();
