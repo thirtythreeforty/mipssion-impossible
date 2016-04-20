@@ -19,7 +19,7 @@ void Datapath::control_signals_in(const Controls& controls)
 	_WB.signals_in(_MEMWB);
 	_ID.signals_in(_IFID, controls, _WB.write_reg_out(), _WB.write_data_out());
 	_IF.signals_in(_ID.new_pc_address_out(), controls.if_controls);
-	//_EX.signals_in(...);
+	_EX.signals_in(_IDEX);
 	_MEM.signals_in(_EXMEM);
 }
 
@@ -27,7 +27,7 @@ void Datapath::tick(Memory& memory)
 {
 	_IF.tick(memory);
 	_ID.tick();
-	// _EX.tick();
+	_EX.tick();
 	_MEM.tick(memory);
 }
 
@@ -35,13 +35,13 @@ void Datapath::tock(Memory& memory)
 {
 	_IF.tock(memory);
 	_ID.tock();
-	// EX.tock();
+	_EX.tock();
 	_MEM.tock(memory);
 
 	// At this point the registers get filled
 	_IFID = _IF.signals_out();
 	_IDEX = _ID.signals_out();
-	// _EXMEM = _EX.signals_out();
+	_EXMEM = _EX.signals_out();
 	_MEMWB = _MEM.signals_out();
 }
 
