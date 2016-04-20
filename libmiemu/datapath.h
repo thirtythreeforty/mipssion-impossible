@@ -30,6 +30,15 @@ public:
 	void tick(Memory& memory);
 	void tock(Memory& memory);
 	ControlInputs control_inputs_out() const;
+
+	const IF& get_IF() const { return _IF; }
+	const IFID& get_IFID() const { return _IFID; }
+	const ID& get_ID() const { return _ID; }
+	const IDEX& get_IDEX() const { return _IDEX; }
+	const EX& get_EX() const { return _EX; }
+	const EXMEM& get_EXMEM() const { return _EXMEM; }
+	const MEMWB& get_MEMWB() const { return _MEMWB; }
+	const WB& get_WB() const { return _WB; }
 };
 
 #endif

@@ -14,9 +14,9 @@ class Emulator
 public:
 	void step();
 
-	const Datapath& datapath() const { return _datapath; }
-	const Memory& memory() const { return _memory; };
-	const Controller& controller() const { return _controller; };
+	const Datapath& get_datapath() const { return _datapath; }
+	Memory& get_memory() { return _memory; };
+	const Controller& get_controller() const { return _controller; };
 };
 
 #endif
