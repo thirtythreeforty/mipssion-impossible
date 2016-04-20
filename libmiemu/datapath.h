@@ -13,8 +13,6 @@
 
 class Datapath
 {
-	Memory _memory;
-
 	IF _IF;
 	IFID _IFID;
 	ID _ID;
