@@ -15,5 +15,6 @@ add_library(libmiemu
 	datapath/WB.cpp
 	datapath/register_file.cpp
 	datapath/alu.cpp
+	datapath/forwarding.cpp
 )
 set_property(TARGET libmiemu PROPERTY CXX_STANDARD 14)

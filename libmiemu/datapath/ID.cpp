@@ -5,8 +5,6 @@ void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, u
 	_controls = ctrl;
 	_ifid = ifid;
 
-	uint8_t read1;
-	uint8_t read2;
 	if(!ctrl.id_controls.use_8bit_data) {
 		read1 = (ifid.instruction >> 4) & 0x000F;
 		read2 = (ctrl.id_controls.reg_position
@@ -76,6 +74,8 @@ void ID::recompute_signals_out()
 		_register_file.data1_out(),
 		_register_file.data2_out(),
 
+		read1,
+		read2,
 		0, // branch_offset
 
 		write_reg,

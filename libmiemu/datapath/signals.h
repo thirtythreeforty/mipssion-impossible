@@ -53,6 +53,31 @@ struct ControlInputs {
 	uint16_t instruction;
 };
 
+struct FRWD_Out {
+	/*
+	0 = use data value
+	1 = EXMEM.alu_output
+	2 = MEMWB.memory_data  or MEMWB.alu_output //Use wb_controls.mem_to_reg to see which one to pick
+												mem_to_reg = 0, alu_output
+												mem_to_reg = 1, memory_data
+	
+	*/
+	uint8_t ALUSRC1;
+	/* 
+	0 = use data vaue  
+	1 = EXMEM.alu_output
+	2 = MEMWB.memory_data or MEMWB.alu_output //Use wb_controls.mem_to_reg to see which one to pick
+												mem_to_reg = 0, alu_output
+												mem_to_reg = 1, memory_data
+	*/
+	uint8_t ALUSRC2;
+	//set from exmem buffer
+	uint16_t exmem_alu_output;
+
+	//set from memwb based on conditions listed above
+	uint16_t memwb_data;
+};
+
 struct IFID {
 	uint16_t instruction;
 	uint16_t pc_plus_2;
@@ -65,6 +90,9 @@ struct IDEX {
 
 	uint16_t data1;
 	uint16_t data2;
+
+	uint16_t read1;
+	uint16_t read2;
 
 	int16_t branch_offset;
 
