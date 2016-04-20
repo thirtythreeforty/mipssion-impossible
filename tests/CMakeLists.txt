@@ -13,6 +13,8 @@ add_executable(mitests
 	test_ex.cpp
 	test_mem.cpp
 	test_wb.cpp
+
+	test_emulator.cpp
 )
 set_property(TARGET mitests PROPERTY CXX_STANDARD 14)
 target_link_libraries(mitests gtest gtest_main libmiemu)
