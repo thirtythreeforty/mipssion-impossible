@@ -10,7 +10,7 @@ uint16_t IF::get_pc() const
 	return program_counter;
 }
 
-void IF::signals_in(uint16_t new_pc_address, const IFControls& controls)
+void IF::signals_in(uint16_t new_pc_address, const IFControls& controls, bool stall)
 {
 	if(controls.use_new_address)
 		IF::program_counter = new_pc_address;

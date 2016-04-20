@@ -1,6 +1,6 @@
 #include "ID.h"
 
-void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, uint16_t write_data)
+void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, uint16_t write_data, bool stall)
 {
 	_controls = ctrl;
 	_ifid = ifid;

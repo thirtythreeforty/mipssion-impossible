@@ -29,12 +29,12 @@ struct IDControls {
 
 struct EXControls {
 	bool alu_src;
-
 	ALUOp alu_op;
 };
 
 struct MEMControls {
 	bool mem_write;
+	bool mem_read;
 };
 
 struct WBControls {

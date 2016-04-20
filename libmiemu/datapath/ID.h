@@ -15,7 +15,7 @@ class ID
 	uint16_t _new_pc_address_out;
 
 public:
-	void signals_in(const IFID&, const Controls&, uint8_t write_reg, uint16_t write_data);
+	void signals_in(const IFID&, const Controls&, uint8_t write_reg, uint16_t write_data, bool stall);
 	void tick();
 	void tock();
 	IDEX signals_out() const;

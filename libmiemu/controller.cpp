@@ -45,10 +45,12 @@ Controls Controller::controls_out() const
 		id_controls.reg_position = 0;
 		id_controls.reg_write = 1;
 		id_controls.use_8bit_data = 0;
+		
 
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
 		ex_controls.alu_src = 1;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -72,6 +74,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -95,6 +98,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::Subtract;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -118,6 +122,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::And;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -141,6 +146,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::Or;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -164,6 +170,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::Xor;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -187,6 +194,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::ShiftLeft;
 		ex_controls.alu_src = 1;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -210,6 +218,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::ShiftRight;
 		ex_controls.alu_src = 1;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -233,6 +242,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::Subtract;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -256,6 +266,7 @@ Controls Controller::controls_out() const
 		//EX
 		//ex_controls.alu_op = 1001;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -279,6 +290,7 @@ Controls Controller::controls_out() const
 		//EX
 		//ex_controls.alu_op = 1010;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -302,6 +314,7 @@ Controls Controller::controls_out() const
 		//EX
 		//ex_controls.alu_op = 1011;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -325,6 +338,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::Subtract;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -348,6 +362,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 1;
 
 		//MEM
 		mem_controls.mem_write = 0;
@@ -371,6 +386,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
 		ex_controls.alu_src = 0;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 1;
@@ -394,6 +410,7 @@ Controls Controller::controls_out() const
 		//EX
 		ex_controls.alu_op = ALUOp::Add;
 		ex_controls.alu_src = 1;
+		mem_controls.mem_read = 0;
 
 		//MEM
 		mem_controls.mem_write = 0;
