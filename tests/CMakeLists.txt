@@ -13,7 +13,6 @@ add_executable(mitests
 	test_ex.cpp
 	test_mem.cpp
 	test_wb.cpp
-	test_hazard.cpp
 	test_forward.cpp
 )
 set_property(TARGET mitests PROPERTY CXX_STANDARD 14)
