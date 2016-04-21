@@ -2,16 +2,20 @@
 #include "datapath/hazard_detection.h"
 #include "instructions.h"
 #include "datapath/IF.h"
+#include "datapath/ID.h"
 
 TEST(HDU, branch_previousRinstruct) {
 	IFID ifid;
-	IDEX idex;
+	IFID ifid2;
+	IDEX idex, idex2;
 	EXMEM exmem = {};
 	MEMWB memwb = {};
 	HDU hdu;
 	Memory mem;
 	IF if_block;
+	ID id_block;
 	IFControls ifcontrols;
+	Controls controls = {};
 	bool stall;
 
 	if_block.set_pc(0x1234);
@@ -31,7 +35,12 @@ TEST(HDU, branch_previousRinstruct) {
 	if_block.signals_in(0x0000, ifcontrols, stall);
 	if_block.tick(mem);
 	if_block.tock(mem);
-	ifid = if_block.signals_out();
+	ifid2 = if_block.signals_out();
+
+	id_block.signals_in(ifid2, controls, 0x00, 0x00, 1);
+	id_block.tick();
+	id_block.tock();
+	idex2 = id_block.signals_out();
 
 
 
@@ -39,6 +48,8 @@ TEST(HDU, branch_previousRinstruct) {
 	EXPECT_EQ(1, stall);
 	//check that PC was not changed
 	EXPECT_EQ(0x1234, if_block.get_pc());
+	EXPECT_EQ(ifid.instruction, ifid2.instruction);
+	EXPECT_EQ(0, idex2.data1);
 
 }
 
