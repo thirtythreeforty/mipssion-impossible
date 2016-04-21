@@ -7,11 +7,19 @@
 class EX
 {
 	ALU _alu;
+	EXMEM _signals_out;
 
+public:
 	void signals_in(const IDEX&);
 	void tick();
 	void tock();
 	EXMEM signals_out() const;
+
+private:
+	IDEX _idex;
+	EXControls _excontrols;
+	void compute_signals_out();
+	
 };
 
 #endif
