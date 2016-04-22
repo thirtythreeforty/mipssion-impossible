@@ -2,16 +2,12 @@ language: cpp
 sudo: required
 dist: trusty
 
-before_install:
-  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update
-
 install:
-  - sudo apt-get install -y valgrind g++-5
+  - sudo apt-get update
+  - sudo apt-get install -y valgrind
 
 script:
   - mkdir build/ && cd build/
-  - export CXX=g++-5
   - cmake ..
   - make
   - valgrind --error-exitcode=1 tests/mitests
