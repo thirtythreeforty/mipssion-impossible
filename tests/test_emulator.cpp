@@ -202,6 +202,46 @@ TEST(Emulator, j)
 	EXPECT_EQ(0, emulator.get_datapath().get_ID().get_register_file().get_register(reg::a1));
 }
 
+TEST(Emulator, jl)
+{
+	Emulator emulator;
+
+	std::array<uint16_t, 4> instructions = {
+		inst::nop(),
+		inst::jl(6),
+		inst::lbi(reg::a0, 2),
+		inst::nop()
+	};
+
+	auto finish = init_mem(emulator.get_memory(), instructions);
+	step_emulator_to(emulator, finish);
+
+	EXPECT_EQ(4, emulator.get_datapath().get_ID().get_register_file().get_register(14));
+	EXPECT_EQ(0, emulator.get_datapath().get_ID().get_register_file().get_register(reg::a0));
+}
+
+TEST(Emulator, jr)
+{
+	Emulator emulator;
+
+	std::array<uint16_t, 8> instructions = {
+		inst::nop(),
+		inst::jl(8),
+		inst::lbi(reg::a0, 2),
+		inst::j(14),
+		inst::nop(), // Clear data hazard before jr
+		inst::nop(),
+		inst::jr(),
+		inst::nop()
+	};
+
+	auto finish = init_mem(emulator.get_memory(), instructions);
+	step_emulator_to(emulator, finish);
+
+	EXPECT_EQ(4, emulator.get_datapath().get_ID().get_register_file().get_register(14));
+	EXPECT_EQ(2, emulator.get_datapath().get_ID().get_register_file().get_register(reg::a0));
+}
+
 TEST(Emulator, beq)
 {
 	Emulator emulator;

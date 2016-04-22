@@ -28,15 +28,19 @@ struct IDControls {
 	bool branch_z = false;
 	bool branch_lt = false;
 	bool jump = false;
+	bool jump_link = false;
+	bool write_link = false;
 	bool reg_write = false;
 	bool use_8bit_data = false;
 
 	IDControls() = default;
-	IDControls(bool reg_position, bool branch_z, bool branch_lt, bool jump, bool reg_write, bool use_8bit_data)
+	IDControls(bool reg_position, bool branch_z, bool branch_lt, bool jump, bool jump_link, bool write_link, bool reg_write, bool use_8bit_data)
 		: reg_position(reg_position)
 		, branch_z(branch_z)
 		, branch_lt(branch_lt)
 		, jump(jump)
+		, jump_link(jump_link)
+		, write_link(write_link)
 		, reg_write(reg_write)
 		, use_8bit_data(use_8bit_data)
 	{}
