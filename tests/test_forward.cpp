@@ -85,7 +85,7 @@ TEST(Forward, detect_MEMWB_hazard_ALUSRC1)
 	fwd_out = fwd.signals_out();
 
 	EXPECT_EQ(2, fwd_out.ALUSRC1);
-	EXPECT_EQ(memwb.alu_output, fwd_out.memwb_data);
+	//EXPECT_EQ(memwb.alu_output, fwd_out.memwb_data);
 	EXPECT_EQ(0, fwd_out.ALUSRC2);
 }
 
@@ -115,7 +115,7 @@ TEST(Forward, detect_MEMWB_hazard_ALUSRC2)
 
 	EXPECT_EQ(0, fwd_out.ALUSRC1);
 	EXPECT_EQ(2, fwd_out.ALUSRC2);
-	EXPECT_EQ(memwb.alu_output, fwd_out.memwb_data);
+	EXPECT_EQ(memwb.memory_data, fwd_out.memwb_data);
 }
 
 TEST(Forward, detect_double_hazard_EXMEM)
@@ -173,7 +173,7 @@ TEST(Forward, detect_double_hazard_MEMWB)
 
 	EXPECT_EQ(2, fwd_out.ALUSRC1);
 	EXPECT_EQ(2, fwd_out.ALUSRC2);
-	EXPECT_EQ(memwb.alu_output, fwd_out.memwb_data);
+	EXPECT_EQ(memwb.memory_data, fwd_out.memwb_data);
 }
 
 TEST(Forward, detect_double_hazard_EXMEM_MEMWB)
@@ -203,7 +203,7 @@ TEST(Forward, detect_double_hazard_EXMEM_MEMWB)
 	EXPECT_EQ(1, fwd_out.ALUSRC1);
 	EXPECT_EQ(exmem.alu_output, fwd_out.exmem_alu_output);
 	EXPECT_EQ(2, fwd_out.ALUSRC2);
-	EXPECT_EQ(memwb.alu_output, fwd_out.memwb_data);
+	EXPECT_EQ(memwb.memory_data, fwd_out.memwb_data);
 
 }
 
@@ -232,7 +232,7 @@ TEST(Forward, detect_double_hazard_MEMWB_EXMEM)
 	fwd_out = fwd.signals_out();
 
 	EXPECT_EQ(2, fwd_out.ALUSRC1);
-	EXPECT_EQ(memwb.alu_output, fwd_out.memwb_data);
+	EXPECT_EQ(memwb.memory_data, fwd_out.memwb_data);
 	EXPECT_EQ(1, fwd_out.ALUSRC2);
 	EXPECT_EQ(exmem.alu_output, fwd_out.exmem_alu_output);
 }

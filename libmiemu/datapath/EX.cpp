@@ -1,22 +1,48 @@
 #include "EX.h"
 #include <iostream>
 
-void EX::signals_in(const IDEX& idex)
+void EX::signals_in(const IDEX& idex, FRWD_Out fwd)
 {
 	_idex = idex;
 	_excontrols = idex.ex_controls;
 	uint16_t _data2;
+	uint16_t _data1;
+	switch (fwd.ALUSRC1) {
+	case 0:
+		_data1 = _idex.data1;
+		break;
 
-	if (_idex.ex_controls.alu_src == 0) {
-		_data2 = _idex.data2;
+	case 1:
+		_data1 = fwd.exmem_alu_output;
+		break;
+	case 2:
+		_data1 = fwd.memwb_data;
+		break;
 	}
 	
-	if (_excontrols.alu_src == 1) {
-		_data2 = _idex.write_data;
+	switch (fwd.ALUSRC2) {
+	case 0:
+		if (_idex.ex_controls.alu_src == 0) {
+			_data2 = _idex.data2;
+		}
+		if (_excontrols.alu_src == 1) {
+			_data2 = _idex.write_data;
+		}
+		break;
+
+	case 1:
+		_data2 = fwd.exmem_alu_output;
+		break;
+	case 2:
+		_data2 = fwd.memwb_data;
+		break;
+		
 	}
+	
+	
 
 	
-	_alu.signals_in(_excontrols.alu_op, _idex.data1, _data2);
+	_alu.signals_in(_excontrols.alu_op, _data1, _data2);
 	
 
 }
