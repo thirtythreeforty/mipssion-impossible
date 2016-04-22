@@ -50,3 +50,7 @@ uint16_t RegisterFile::data2_out() const
 	return _data2_out;
 }
 
+uint16_t RegisterFile::get_register(uint8_t reg) const
+{
+	return _registers[reg];
+}

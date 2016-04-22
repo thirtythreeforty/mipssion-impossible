@@ -10,7 +10,7 @@ class Controller
 	uint8_t _opcode;
 
 public:
-	void signals_in(uint16_t instruction);
+	void signals_in(ControlInputs);
 	Controls controls_out() const;
 };
 
