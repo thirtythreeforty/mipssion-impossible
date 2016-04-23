@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "datapath/hazard_detection.h"
+#include "hazard_detection.h"
 #include "instructions.h"
 #include "datapath/IF.h"
 #include "datapath/ID.h"

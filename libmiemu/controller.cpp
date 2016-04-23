@@ -1,21 +1,6 @@
 #include "controller.h"
+#include "instructions.h"
 
-#define ADDI 0b0000
-#define ADD 0b0001
-#define SUB 0b0010
-#define AND 0b0011
-#define OR 0b0100
-#define XOR 0b0101
-#define SLL 0b0110
-#define SRL 0b0111
-#define BLT 0b1000
-#define J 0b1001
-#define JL 0b1010
-#define JR 0b1011
-#define BEQ 0b1100
-#define LW 0b1101
-#define SW 0b1110
-#define LBI 0b1111
 
 #define DONT_CARE 0
 
@@ -34,7 +19,7 @@ Controls Controller::controls_out() const
 	WBControls wb_controls;
 
 	switch (_opcode) {
-	case ADDI:
+	case op::addi:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -59,7 +44,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case ADD:
+	case op::add:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -83,7 +68,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case SUB:
+	case op::sub:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -107,7 +92,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case AND:
+	case op::and:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -131,7 +116,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case OR:
+	case op::or:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -155,7 +140,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case XOR:
+	case op::xor:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -179,7 +164,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case SLL:
+	case op::sll:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -203,7 +188,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case SRL:
+	case op::srl:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -227,7 +212,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case BLT:
+	case op::blt:
 		//IF
 		if_controls.use_new_address = 1;
 
@@ -251,7 +236,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case J:
+	case op::j:
 		//IF
 		if_controls.use_new_address = 1;
 
@@ -275,7 +260,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case JL:
+	case op::jl:
 		//IF
 		if_controls.use_new_address = 1;
 
@@ -299,7 +284,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case JR:
+	case op::jr:
 		//IF
 		if_controls.use_new_address = 1;
 
@@ -323,7 +308,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case BEQ:
+	case op::beq:
 		//IF
 		if_controls.use_new_address = 1;
 
@@ -347,7 +332,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case LW:
+	case op::lw:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -371,7 +356,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 1;
 		break;
 
-	case SW:
+	case op::sw:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -395,7 +380,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case LBI:
+	case op::lbi:
 		//IF
 		if_controls.use_new_address = 0;
 

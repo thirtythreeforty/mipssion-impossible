@@ -7,6 +7,7 @@ add_library(libmiemu
 	controller.cpp
 	datapath.cpp
 	program_memory.cpp
+	hazard_detection.cpp
 
 	datapath/IF.cpp
 	datapath/ID.cpp
@@ -15,6 +16,5 @@ add_library(libmiemu
 	datapath/WB.cpp
 	datapath/register_file.cpp
 	datapath/alu.cpp
-	datapath/hazard_detection.cpp
 )
 set_property(TARGET libmiemu PROPERTY CXX_STANDARD 14)
