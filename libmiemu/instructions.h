@@ -91,6 +91,16 @@ inline uint16_t j(const uint16_t address)
 	return jtype(0x9, address);
 }
 
+inline uint16_t jl(const uint16_t address)
+{
+	return jtype(0xA, address);
+}
+
+inline uint16_t jr()
+{
+	return jtype(0xB, 0);
+}
+
 inline uint16_t blt(const uint8_t reg1, const uint8_t reg2, const uint8_t offset)
 {
 	assert(offset <= 0xF);
