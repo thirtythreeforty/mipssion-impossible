@@ -12,15 +12,11 @@ class Emulator
 	Controller _controller;
 
 public:
-	Emulator();
-	~Emulator();
-
-	void run();
 	void step();
 
-	const Datapath& datapath() const;
-	const Memory& memory() const;
-	const Controller& controller() const;
+	const Datapath& get_datapath() const { return _datapath; }
+	Memory& get_memory() { return _memory; };
+	const Controller& get_controller() const { return _controller; };
 };
 
 #endif

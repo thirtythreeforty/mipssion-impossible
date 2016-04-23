@@ -15,7 +15,7 @@ TEST(ID, JumpPCAddress)
 	ifid.instruction = inst::j(0x0010);
 
 	Controller controller;
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	Controls ctrl = controller.controls_out();
 
 	ID id;
@@ -35,7 +35,7 @@ TEST(ID, RegistersWrite)
 
 	for(int i = 1; i < 16; ++i) {
 		ifid.instruction = inst::add(0, i, i);
-		controller.signals_in(ifid.instruction);
+		controller.signals_in({ifid.instruction});
 		Controls ctrl = controller.controls_out();
 
 		id.signals_in(ifid, ctrl, i, i, 0);
@@ -45,7 +45,7 @@ TEST(ID, RegistersWrite)
 
 	for(int i = 1; i < 16; ++i) {
 		ifid.instruction = inst::add(0, i, i);
-		controller.signals_in(ifid.instruction);
+		controller.signals_in({ifid.instruction});
 		Controls ctrl = controller.controls_out();
 
 		ctrl.id_controls.reg_write = false;
@@ -67,7 +67,7 @@ TEST(ID, BranchPCAddress)
 
 	ifid.instruction = DONTCARE;
 	ifid.pc_plus_2 = 0xC0DE;
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	Controls ctrl = controller.controls_out();
 
 	id.signals_in(ifid, ctrl, 1, 1, 0);
@@ -79,7 +79,7 @@ TEST(ID, BranchPCAddress)
 
 	// This should not "branch"
 	ifid.instruction = inst::blt(2, 1, 4);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
@@ -88,7 +88,7 @@ TEST(ID, BranchPCAddress)
 
 	// This SHOULD "branch"
 	ifid.instruction = inst::blt(1, 2, 4);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
@@ -97,7 +97,7 @@ TEST(ID, BranchPCAddress)
 
 	// This should not "branch"
 	ifid.instruction = inst::beq(2, 1, 4);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
@@ -106,7 +106,7 @@ TEST(ID, BranchPCAddress)
 
 	// This SHOULD "branch"
 	ifid.instruction = inst::beq(0, 0, 4);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
@@ -115,7 +115,7 @@ TEST(ID, BranchPCAddress)
 
 	// This branches backward by 2
 	ifid.instruction = inst::beq(0, 0, 0xE);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
 	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
@@ -131,7 +131,7 @@ TEST(ID, WriteRegDecode)
 	ifid.instruction = inst::add(reg::v0, DONTCARE, DONTCARE);
 
 	Controller controller;
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	Controls ctrl = controller.controls_out();
 
 	ctrl.id_controls.reg_write = true;
@@ -163,7 +163,7 @@ TEST(ID, WriteDataSignExtend)
 	for(const auto& itype: itypes) {
 		for(int i = 0; i < 0x8; ++i) {
 			ifid.instruction = itype(DONTCARE, DONTCARE, i);
-			controller.signals_in(ifid.instruction);
+			controller.signals_in({ifid.instruction});
 			Controls ctrl = controller.controls_out();
 
 			id.signals_in(ifid, ctrl, 0, 0, 0);
@@ -175,7 +175,7 @@ TEST(ID, WriteDataSignExtend)
 		// Must sign-extend if constant is 0x8 thru 0xF
 		for(int i = 0x8; i < 0xF; ++i) {
 			ifid.instruction = inst::addi(DONTCARE, DONTCARE, i);
-			controller.signals_in(ifid.instruction);
+			controller.signals_in({ifid.instruction});
 			Controls ctrl = controller.controls_out();
 
 			id.signals_in(ifid, ctrl, 0, 0, 0);
@@ -194,7 +194,7 @@ TEST(ID, WriteDataLBI)
 
 	// Should sign-extend negative
 	ifid.instruction = inst::lbi(DONTCARE, 0xFF);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	Controls ctrl = controller.controls_out();
 
 	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE, 0);
@@ -204,7 +204,7 @@ TEST(ID, WriteDataLBI)
 
 	// Should sign-extend positive
 	ifid.instruction = inst::lbi(DONTCARE, 0x7F);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
 
 	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE, 0);
@@ -223,7 +223,7 @@ TEST(ID, LBIRegisterValues)
 	// data1 and data2 so the EX stage can add zero to the immediate operand
 	// (of course, this needs the proper commands from the controller).
 	ifid.instruction = inst::lbi(DONTCARE, 0xFF);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	Controls ctrl = controller.controls_out();
 
 	// If this isn't handled correctly, the ID stage will read the 0xF register.
@@ -242,7 +242,7 @@ TEST(ID, OutputsChangeOnTick)
 	Controller controller;
 
 	ifid.instruction = inst::lbi(reg::a1, 0xFF);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	Controls ctrl = controller.controls_out();
 
 	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE, 0);
@@ -253,7 +253,7 @@ TEST(ID, OutputsChangeOnTick)
 	IDEX before_idex = id.signals_out();
 
 	ifid.instruction = inst::beq(reg::v0, reg::v1, 4);
-	controller.signals_in(ifid.instruction);
+	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
 
 	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE, 0);

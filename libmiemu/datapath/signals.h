@@ -15,30 +15,65 @@ enum class ALUOp {
 
 struct IFControls {
 	// If false, use PC + 2
-	bool use_new_address;
+	bool use_new_address = false;
+
+	IFControls() = default;
+	IFControls(bool use_new_address)
+		: use_new_address(use_new_address)
+	{}
 };
 
 struct IDControls {
-	bool reg_position;
-	bool branch_z;
-	bool branch_lt;
-	bool jump;
-	bool reg_write;
-	bool use_8bit_data;
+	bool reg_position = false;
+	bool branch_z = false;
+	bool branch_lt = false;
+	bool jump = false;
+	bool jump_link = false;
+	bool write_link = false;
+	bool reg_write = false;
+	bool use_8bit_data = false;
+
+	IDControls() = default;
+	IDControls(bool reg_position, bool branch_z, bool branch_lt, bool jump, bool jump_link, bool write_link, bool reg_write, bool use_8bit_data)
+		: reg_position(reg_position)
+		, branch_z(branch_z)
+		, branch_lt(branch_lt)
+		, jump(jump)
+		, jump_link(jump_link)
+		, write_link(write_link)
+		, reg_write(reg_write)
+		, use_8bit_data(use_8bit_data)
+	{}
 };
 
 struct EXControls {
-	bool alu_src;
-	ALUOp alu_op;
+	bool alu_src = false;
+	ALUOp alu_op = ALUOp::Add;
+
+	EXControls() = default;
+	EXControls(bool alu_src, ALUOp alu_op)
+		: alu_src(alu_src)
+		, alu_op(alu_op)
+	{}
 };
 
 struct MEMControls {
-	bool mem_write;
-	bool mem_read;
+	bool mem_write = false;
+	bool mem_read = false;
+
+	MEMControls() = default;
+	MEMControls(bool mem_write)
+		: mem_write(mem_write)
+	{}
 };
 
 struct WBControls {
-	bool mem_to_reg;
+	bool mem_to_reg = false;
+
+	WBControls() = default;
+	WBControls(bool mem_to_reg)
+		: mem_to_reg(mem_to_reg)
+	{}
 };
 
 struct Controls {
@@ -50,12 +85,23 @@ struct Controls {
 };
 
 struct ControlInputs {
-	uint16_t instruction;
+	uint16_t instruction = 0;
+
+	ControlInputs() = default;
+	ControlInputs(uint16_t instruction)
+		: instruction(instruction)
+	{}
 };
 
 struct IFID {
-	uint16_t instruction;
-	uint16_t pc_plus_2;
+	uint16_t instruction = 0;
+	uint16_t pc_plus_2 = 0;
+
+	IFID() = default;
+	IFID(uint16_t instruction, uint16_t pc_plus_2)
+		: instruction(instruction)
+		, pc_plus_2(pc_plus_2)
+	{}
 };
 
 struct IDEX {
@@ -88,20 +134,36 @@ struct EXMEM {
 	MEMControls mem_controls;
 	WBControls wb_controls;
 
-	uint16_t alu_output;
-	uint16_t write_data;
+	uint16_t alu_output = 0;
+	uint16_t write_data = 0;
 
-	uint8_t write_reg;
-	
+	uint8_t write_reg = 0;
+
+	EXMEM() = default;
+	EXMEM(MEMControls mem_controls, WBControls wb_controls, uint16_t alu_output, uint16_t write_data, uint16_t write_reg)
+		: mem_controls(mem_controls)
+		, wb_controls(wb_controls)
+		, alu_output(alu_output)
+		, write_data(write_data)
+		, write_reg(write_reg)
+	{}
 };
 
 struct MEMWB {
 	WBControls wb_controls;
 
-	uint16_t memory_data;
-	uint16_t alu_output;
+	uint16_t memory_data = 0;
+	uint16_t alu_output = 0;
 
-	uint8_t write_reg;
+	uint8_t write_reg = 0;
+
+	MEMWB() = default;
+	MEMWB(WBControls wb_controls, uint16_t memory_data, uint16_t alu_output, uint8_t write_reg)
+		: wb_controls(wb_controls)
+		, memory_data(memory_data)
+		, alu_output(alu_output)
+		, write_reg(write_reg)
+	{}
 };
 
 #endif

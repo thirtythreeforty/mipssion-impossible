@@ -68,14 +68,59 @@ inline uint16_t addi(const uint8_t write_reg, const uint8_t read_reg, const uint
 	return itype(0x0, constant, read_reg, write_reg);
 }
 
+inline uint16_t nop()
+{
+	return addi(0, 0, 0);
+}
+
 inline uint16_t add(const uint8_t write_reg, const uint8_t reg1, const uint8_t reg2)
 {
 	return rtype(0x1, write_reg, reg1, reg2);
 }
 
+inline uint16_t sub(const uint8_t write_reg, const uint8_t reg1, const uint8_t reg2)
+{
+	return rtype(0x2, write_reg, reg1, reg2);
+}
+
+inline uint16_t and_(const uint8_t write_reg, const uint8_t reg1, const uint8_t reg2)
+{
+	return rtype(0x3, write_reg, reg1, reg2);
+}
+
+inline uint16_t or_(const uint8_t write_reg, const uint8_t reg1, const uint8_t reg2)
+{
+	return rtype(0x4, write_reg, reg1, reg2);
+}
+
+inline uint16_t xor_(const uint8_t write_reg, const uint8_t reg1, const uint8_t reg2)
+{
+	return rtype(0x5, write_reg, reg1, reg2);
+}
+
+inline uint16_t sll(const uint8_t write_reg, const uint8_t reg1, const uint8_t shift)
+{
+	return itype(0x6, shift, reg1, write_reg);
+}
+
+inline uint16_t srl(const uint8_t write_reg, const uint8_t reg1, const uint8_t shift)
+{
+	return itype(0x7, shift, reg1, write_reg);
+}
+
 inline uint16_t j(const uint16_t address)
 {
 	return jtype(0x9, address);
+}
+
+inline uint16_t jl(const uint16_t address)
+{
+	return jtype(0xA, address);
+}
+
+inline uint16_t jr()
+{
+	return jtype(0xB, 0);
 }
 
 inline uint16_t blt(const uint8_t reg1, const uint8_t reg2, const uint8_t offset)
@@ -90,6 +135,11 @@ inline uint16_t beq(const uint8_t reg1, const uint8_t reg2, const uint8_t offset
 	assert(offset <= 0xF);
 	uint8_t extend_off = offset >= 0x8 ? offset | 0xF0 : offset;
 	return itype(0xC, reg2, reg1, (extend_off >> 1) & 0xF);
+}
+
+inline uint16_t halt()
+{
+	return beq(reg::zero, reg::zero, 0xE);
 }
 
 inline uint16_t lw(const uint8_t write_reg, const uint8_t addr_reg, const uint8_t constant)

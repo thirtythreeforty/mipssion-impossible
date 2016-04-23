@@ -13,6 +13,9 @@ private:
 public:
 	std::size_t size() const;
 
+	void set_datapath(uint16_t location, uint16_t data);
+	uint16_t get_datapath(uint16_t location) const;
+
 	void set(uint16_t location, uint16_t data);
 	uint16_t get(uint16_t location) const;
 };

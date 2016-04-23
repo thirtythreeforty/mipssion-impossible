@@ -10,14 +10,14 @@ void MEM::signals_in(const EXMEM& exmem)
 
 void MEM::tick(const Memory& mem)
 {
-	_signals_out.memory_data = mem.get(_exmem.alu_output);
+	_signals_out.memory_data = mem.get_datapath(_exmem.alu_output);
 }
 
 void MEM::tock(Memory& mem)
 {
 	if (_exmem.mem_controls.mem_write)
 	{
-		mem.set(_exmem.alu_output, _exmem.write_data);
+		mem.set_datapath(_exmem.alu_output, _exmem.write_data);
 	}
 }
 

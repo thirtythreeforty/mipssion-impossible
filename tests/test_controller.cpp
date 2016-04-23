@@ -39,12 +39,12 @@ TEST(Controller, AssertsWriteReg)
 	};
 
 	for(const auto inst: should_set_writereg) {
-		ctrl.signals_in(inst);
+		ctrl.signals_in({inst});
 		EXPECT_EQ(1, ctrl.controls_out().id_controls.reg_write) << "Instruction is " << std::hex << inst;
 	}
 
 	for(const auto inst: dont_set_writereg) {
-		ctrl.signals_in(inst);
+		ctrl.signals_in({inst});
 		EXPECT_EQ(0, ctrl.controls_out().id_controls.reg_write) << "Instruction is " << std::hex << inst;
 	}
 }
