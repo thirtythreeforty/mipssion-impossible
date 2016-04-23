@@ -62,14 +62,26 @@ struct IDEX {
 	EXControls ex_controls;
 	MEMControls mem_controls;
 	WBControls wb_controls;
+	uint16_t data1 = 0;
+	uint16_t data2 = 0;
+	uint16_t read1 = 0;
+	uint16_t read2 = 0;
+	int16_t branch_offset = 0;
 
-	uint16_t data1;
-	uint16_t data2;
+	uint8_t write_reg = 0;
+	uint16_t write_data = 0;
 
-	int16_t branch_offset;
-
-	uint8_t write_reg;
-	uint16_t write_data;
+	IDEX() = default;
+	IDEX(EXControls ex_controls, MEMControls mem_controls, WBControls wb_controls, uint16_t data1, uint16_t data2, int16_t branch_offset, uint8_t write_reg, uint16_t write_data)
+		: ex_controls(ex_controls)
+		, mem_controls(mem_controls)
+		, wb_controls(wb_controls)
+		, data1(data1)
+		, data2(data2)
+		, branch_offset(branch_offset)
+		, write_reg(write_reg)
+		, write_data(write_data)
+	{}
 };
 
 struct EXMEM {
