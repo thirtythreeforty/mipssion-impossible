@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
-#include "datapath\forwarding.h"
-#include "datapath\signals.h"
+#include "datapath/forwarding.h"
+#include "datapath/signals.h"
 
 TEST(Forward, detect_EXMEM_hazard_ALUSRC1)
 {
@@ -19,7 +19,7 @@ TEST(Forward, detect_EXMEM_hazard_ALUSRC1)
 
 	//MEM/WB
 	memwb.wb_controls.mem_to_reg = 0;
-	memwb.write_reg = 0x1234;
+	memwb.write_reg = 0x0000;
 
 	fwd.signals_in(idex, exmem, memwb);
 	fwd.tick();
@@ -48,7 +48,7 @@ TEST(Forward, detect_EXMEM_hazard_ALUSRC2)
 
 	//MEM/WB
 	memwb.wb_controls.mem_to_reg = 0;
-	memwb.write_reg = 0x1234;
+	memwb.write_reg = 0x0000;
 
 	fwd.signals_in(idex, exmem, memwb);
 	fwd.tick();
@@ -73,7 +73,7 @@ TEST(Forward, detect_MEMWB_hazard_ALUSRC1)
 	idex.read2 = 0x0004;
 
 	//EX/ME
-	exmem.write_reg = 0x1234;
+	exmem.write_reg = 0x0000;
 
 	//MEM/WB
 	memwb.wb_controls.mem_to_reg = 0;
@@ -102,7 +102,7 @@ TEST(Forward, detect_MEMWB_hazard_ALUSRC2)
 	idex.read2 = 0x0002;
 
 	//EX/ME
-	exmem.write_reg = 0x1234;
+	exmem.write_reg = 0x0000;
 
 	//MEM/WB
 	memwb.wb_controls.mem_to_reg = 0;
