@@ -23,6 +23,8 @@ public:
 	IDEX signals_out() const;
 	uint16_t new_pc_address_out() const;
 
+	const RegisterFile& get_register_file() const { return _register_file; }
+
 private:
 	void recompute_signals_out();
 	void recompute_new_pc_address_out();

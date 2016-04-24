@@ -4,6 +4,8 @@ project(libmiemu CXX)
 add_library(libmiemu
 	libmiemu.cpp
 
+	emulator.cpp
+
 	controller.cpp
 	datapath.cpp
 	program_memory.cpp

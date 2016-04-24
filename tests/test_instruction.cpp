@@ -12,6 +12,36 @@ TEST(Instructions, add)
 	EXPECT_EQ(0x1123, inst::add(reg::v0, reg::v1, 3));
 }
 
+TEST(Instructions, sub)
+{
+	EXPECT_EQ(0x2123, inst::sub(reg::v0, reg::v1, reg::v2));
+}
+
+TEST(Instructions, and)
+{
+	EXPECT_EQ(0x3123, inst::and_(reg::v0, reg::v1, reg::v2));
+}
+
+TEST(Instructions, or)
+{
+	EXPECT_EQ(0x4123, inst::or_(reg::v0, reg::v1, reg::v2));
+}
+
+TEST(Instructions, xor)
+{
+	EXPECT_EQ(0x5123, inst::xor_(reg::v0, reg::v1, reg::v2));
+}
+
+TEST(Instructions, sll)
+{
+	EXPECT_EQ(0x6F21, inst::sll(reg::v0, reg::v1, 15));
+}
+
+TEST(Instructions, srl)
+{
+	EXPECT_EQ(0x7F21, inst::srl(reg::v0, reg::v1, 15));
+}
+
 TEST(Instructions, j)
 {
 	EXPECT_EQ(0x9001, inst::j(0x2));

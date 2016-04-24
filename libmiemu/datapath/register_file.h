@@ -27,6 +27,8 @@ public:
 
 	uint16_t data1_out() const;
 	uint16_t data2_out() const;
+
+	uint16_t get_register(uint8_t reg) const;
 };
 
 #endif
