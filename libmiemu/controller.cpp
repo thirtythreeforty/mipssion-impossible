@@ -291,7 +291,7 @@ Controls Controller::controls_out() const
 		id_controls.jump_link = 0;
 		id_controls.write_link = 1;
 		id_controls.reg_position = DONT_CARE;
-		id_controls.reg_write = 0;
+		id_controls.reg_write = 0;//may need to be 1
 		id_controls.use_8bit_data = 0;
 
 		//EX

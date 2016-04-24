@@ -19,10 +19,15 @@ TEST(HDU, branch_previousRinstruct) {
 	bool stall;
 
 	if_block.set_pc(0x0004);
-
+	
 	ifid.instruction = inst::beq(reg::t0, reg::t1, 0x01);
 	mem.set(0x0004, ifid.instruction);
-
+	//Added to filter signals to ifid buffer
+	if_block.signals_in(0x0004, ifcontrols.use_new_address = true, false);
+	if_block.tick(mem);
+	if_block.tock(mem);
+	ifid = if_block.signals_out();
+	//PC would now be 0x0006 for next fetch cycle
 	idex.mem_controls.mem_read = 0;
 	idex.write_reg = reg::t0;
 
@@ -48,7 +53,7 @@ TEST(HDU, branch_previousRinstruct) {
 	//check that stall was passed out of HDU
 	EXPECT_EQ(1, stall);
 	//check that PC was not changed
-	EXPECT_EQ(0x0004, if_block.get_pc());
+	EXPECT_EQ(0x0006, if_block.get_pc());
 	EXPECT_EQ(ifid.instruction, ifid2.instruction);
 	EXPECT_EQ(0, idex2.data1);
 

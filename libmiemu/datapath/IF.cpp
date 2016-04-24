@@ -25,11 +25,11 @@ void IF::signals_in(uint16_t new_pc_address, const IFControls& controls, bool st
 
 void IF::tick(const Memory& mem)
 {
-	signals_o.instruction = mem.get(program_counter);
 	if (!_stall) {
+		signals_o.instruction = mem.get(program_counter);
 		program_counter += 2;
+		signals_o.pc_plus_2 = program_counter;
 	}
-	signals_o.pc_plus_2 = program_counter;
 }
 
 void IF::tock(const Memory&)
