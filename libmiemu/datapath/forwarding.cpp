@@ -26,11 +26,13 @@ void Forward::tick()
 	//rt = memwb rd
 
 	//RS
-	if (_idex_rs == _exmem_rd) {
+	if (_idex_rs == _exmem_rd
+		&& _exmem_rd != 0) {
 		_fwd.ALUSRC1 = 1;
 		_fwd.exmem_alu_output = _exmem_output;
 	}
-	else if (_idex_rs == _memwb_rd) {
+	else if (_idex_rs == _memwb_rd
+		&& _memwb_rd != 0) {
 		_fwd.ALUSRC1 = 2;
 		_fwd.memwb_data = _memwb_output;
 	}
@@ -40,11 +42,13 @@ void Forward::tick()
 
 
 	//RT
-	if (_idex_rt == _exmem_rd) {
+	if (_idex_rt == _exmem_rd
+		&& _exmem_rd != 0) {
 		_fwd.ALUSRC2 = 1;
 		_fwd.exmem_alu_output = _exmem_output;
 	}
-	else if (_idex_rt == _memwb_rd) {
+	else if (_idex_rt == _memwb_rd
+		&& _memwb_rd != 0) {
 		_fwd.ALUSRC2 = 2;
 		_fwd.memwb_data = _memwb_output;
 	}
@@ -79,6 +83,10 @@ void Forward::tick()
 				_fwd.REGSRC2 = 0;
 			}
 
+	}
+	else
+	{
+		_fwd.REGSRC1 = _fwd.REGSRC2 = 0;
 	}
 		
 }
