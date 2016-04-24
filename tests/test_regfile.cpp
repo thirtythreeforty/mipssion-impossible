@@ -17,8 +17,6 @@ TEST(regfile, ReadWrite) {
 
 	for(int i = 0; i < expected_registers; ++i) {
 		regfile.signals_in(i, i, false, 0, 0);
-		regfile.tick();
-		regfile.tock();
 		ASSERT_EQ(i, regfile.data1_out());
 		ASSERT_EQ(i, regfile.data2_out());
 	}
@@ -40,8 +38,6 @@ TEST(regfile, WriteEnable) {
 
 	for(int i = 0; i < expected_registers; ++i) {
 		regfile.signals_in(i, i, false, 0, 0);
-		regfile.tick();
-		regfile.tock();
 		ASSERT_EQ(i, regfile.data1_out());
 		ASSERT_EQ(i, regfile.data2_out());
 	}

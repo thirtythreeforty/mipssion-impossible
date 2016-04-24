@@ -16,21 +16,17 @@ void IF::signals_in(uint16_t new_pc_address, const IFControls& controls, bool st
 	_stall = stall;
 	if(controls.use_new_address && !_stall)
 		IF::program_counter = new_pc_address;
-	
+	else
+		program_counter = signals_o.pc_plus_2;
 }
 
 void IF::tick(const Memory& mem)
 {
-		signals_o.instruction = mem.get(IF::get_pc());
-		if (_stall) {
-			program_counter = IF::get_pc();
-		}
-		else
-		{
-			program_counter = IF::get_pc() + 2;
-		}
-		signals_o.pc_plus_2 = program_counter;
-	
+	signals_o.instruction = mem.get(program_counter);
+	if (!_stall) {
+		program_counter += 2;
+	}
+	signals_o.pc_plus_2 = program_counter;
 }
 
 void IF::tock(const Memory&)
