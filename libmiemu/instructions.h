@@ -20,9 +20,31 @@ namespace reg
 		a1,
 		a2,
 		a3,
+		link = 14,
 	};
 }
 
+namespace op
+{
+	enum {
+		addi = 0b0000,
+		add = 0b0001,
+		sub = 0b0010,
+		and_ = 0b0011,
+		or_ = 0b0100,
+		xor_ = 0b0101,
+		sll = 0b0110,
+		srl = 0b0111,
+		blt = 0b1000,
+		j = 0b1001,
+		jl = 0b1010,
+		jr = 0b1011,
+		beq = 0b1100,
+		lw = 0b1101,
+		sw = 0b1110,
+		lbi = 0b1111,
+	};
+}
 namespace inst
 {
 	namespace

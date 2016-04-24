@@ -1,12 +1,11 @@
 #include "ID.h"
 
-void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, uint16_t write_data)
+void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, uint16_t write_data, bool stall)
 {
 	_controls = ctrl;
 	_ifid = ifid;
-
-	uint8_t read1;
-	uint8_t read2;
+	_stall = stall;
+	
 	if(ctrl.id_controls.jump_link) {
 		read1 = 14; // link register
 		read2 = 0;
@@ -87,20 +86,42 @@ void ID::recompute_signals_out()
 			? write_data_bits | 0xFFF0
 			: write_data_bits;
 	}
+	if (_stall) {
+		_signals_out = {
+			{},
+			{},
+			{},
 
-	_signals_out = {
-		_controls.ex_controls,
-		_controls.mem_controls,
-		_controls.wb_controls,
+			0,
+			0,
 
-		_register_file.data1_out(),
-		_register_file.data2_out(),
+			0,
+			0,
 
-		0, // branch_offset
+			0, // branch_offset
 
-		write_reg,
-		write_data,
-	};
+			0,
+			0,
+		};
+	}
+	else {
+		_signals_out = {
+			_controls.ex_controls,
+			_controls.mem_controls,
+			_controls.wb_controls,
+
+			read1,
+			read2,
+
+			_register_file.data1_out(),
+			_register_file.data2_out(),
+
+			0, // branch_offset
+
+			write_reg,
+			write_data,
+		};
+	}
 }
 
 void ID::recompute_new_pc_address_out()

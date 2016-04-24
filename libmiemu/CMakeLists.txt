@@ -9,6 +9,7 @@ add_library(libmiemu
 	controller.cpp
 	datapath.cpp
 	program_memory.cpp
+	hazard_detection.cpp
 
 	datapath/IF.cpp
 	datapath/ID.cpp
