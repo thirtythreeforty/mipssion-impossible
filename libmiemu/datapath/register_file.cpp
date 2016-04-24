@@ -25,6 +25,9 @@ void RegisterFile::signals_in(uint8_t read1,
 	_write = write;
 	_write_reg = write_reg;
 	_write_data = write_data;
+
+	_data1_out = _registers[_read1];
+	_data2_out = _registers[_read2];
 }
 
 void RegisterFile::tick()
