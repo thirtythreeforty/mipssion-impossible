@@ -57,3 +57,10 @@ FRWD_Out Forward::signals_out() const
 {
 	return _fwd;
 }
+
+FRWD_Out Forward::run_forwarding_unit (const IDEX& idex, const EXMEM& exmem, const MEMWB& memwb) {
+	Forward::signals_in(idex, exmem, memwb);
+	Forward::tick();
+	Forward::tock();
+	return Forward::signals_out();
+}

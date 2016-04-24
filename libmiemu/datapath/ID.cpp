@@ -5,8 +5,6 @@ void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, u
 	_controls = ctrl;
 	_ifid = ifid;
 
-	uint8_t read1;
-	uint8_t read2;
 	if(ctrl.id_controls.jump_link) {
 		read1 = 14; // link register
 		read2 = 0;

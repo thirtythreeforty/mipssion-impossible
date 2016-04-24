@@ -1,6 +1,6 @@
 #include "datapath.h"
 
-void Datapath::control_signals_in(const Controls& controls)
+void Datapath::control_signals_in(const Controls& controls, FRWD_Out fwdout)
 {
 	// This is tricky -- the combinatorial signals must be propagated
 	// correctly.  This is easy in actual hardware but the right order must be
@@ -19,7 +19,7 @@ void Datapath::control_signals_in(const Controls& controls)
 	_WB.signals_in(_MEMWB);
 	_ID.signals_in(_IFID, controls, _WB.write_reg_out(), _WB.write_data_out());
 	_IF.signals_in(_ID.new_pc_address_out(), controls.if_controls);
-	_EX.signals_in(_IDEX);
+	_EX.signals_in(_IDEX, fwdout);
 	_MEM.signals_in(_EXMEM);
 }
 

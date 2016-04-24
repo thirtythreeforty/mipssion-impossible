@@ -21,5 +21,6 @@ public:
 	void tick();
 	void tock();
 	FRWD_Out signals_out() const;
+	FRWD_Out run_forwarding_unit(const IDEX&, const EXMEM&, const MEMWB&);
 };
 #endif // !FORWARD_H
