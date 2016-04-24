@@ -5,8 +5,7 @@ void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, u
 	_controls = ctrl;
 	_ifid = ifid;
 	_stall = stall;
-	uint8_t read1;
-	uint8_t read2;
+	
 	if(ctrl.id_controls.jump_link) {
 		read1 = 14; // link register
 		read2 = 0;
@@ -90,6 +89,9 @@ void ID::recompute_signals_out()
 			0,
 			0,
 
+			0,
+			0,
+
 			0, // branch_offset
 
 			0,
@@ -101,6 +103,9 @@ void ID::recompute_signals_out()
 			_controls.ex_controls,
 			_controls.mem_controls,
 			_controls.wb_controls,
+
+			read1,
+			read2,
 
 			_register_file.data1_out(),
 			_register_file.data2_out(),

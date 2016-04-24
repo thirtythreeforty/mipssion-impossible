@@ -13,6 +13,8 @@ class ID
 
 	IDEX _signals_out;
 	uint16_t _new_pc_address_out;
+	uint8_t read1;
+	uint8_t read2;
 	bool _stall = 0;
 
 public:
