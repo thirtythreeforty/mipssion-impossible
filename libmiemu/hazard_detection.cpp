@@ -33,6 +33,7 @@ void HDU::tick() {
 	//check for dependency in mem stage for branch
 	else if ((opcode == op::beq || opcode == op::blt)
 		&& _exmem.write_reg != reg::zero
+		&& _exmem.mem_controls.mem_read == 1
 		&& (_exmem.write_reg == readRegs.first
 			|| _exmem.write_reg == readRegs.second))
 		stall = 1;
@@ -42,7 +43,8 @@ void HDU::tick() {
 	//if cur inst == jr, check for write to link reg in pipeline
 	else if (opcode == op::jr
 		&& (_idex.write_reg == reg::link
-			|| _exmem.write_reg == reg::link))
+			|| _exmem.write_reg == reg::link
+			|| _memwb.write_reg == reg::link))
 		stall = 1;
 	else
 		stall = 0;
