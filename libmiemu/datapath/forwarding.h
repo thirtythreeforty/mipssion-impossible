@@ -19,7 +19,7 @@ private:
 
 	FRWD_Out _fwd;
 
-	std::pair<uint8_t, uint8_t> Forward::getRead(uint16_t _instruction, uint8_t _op);
+	std::pair<uint8_t, uint8_t> getRead(uint16_t _instruction, uint8_t _op);
 	uint8_t _opcode;
 	uint16_t _instruct;
 
