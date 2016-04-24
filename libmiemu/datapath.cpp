@@ -17,7 +17,7 @@ void Datapath::control_signals_in(const Controls& controls, FRWD_Out fwdout)
 	// So here is that pattern.
 
 	_WB.signals_in(_MEMWB);
-	_ID.signals_in(_IFID, controls, _WB.write_reg_out(), _WB.write_data_out());
+	_ID.signals_in(_IFID, controls, _WB.write_reg_out(), _WB.write_data_out(), fwdout);
 	_IF.signals_in(_ID.new_pc_address_out(), controls.if_controls);
 	_EX.signals_in(_IDEX, fwdout);
 	_MEM.signals_in(_EXMEM);

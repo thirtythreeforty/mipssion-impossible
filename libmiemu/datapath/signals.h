@@ -116,6 +116,9 @@ struct FRWD_Out {
 
 	//set from memwb based on conditions listed above
 	uint16_t memwb_data;
+
+	uint8_t REGSRC1;
+	uint8_t REGSRC2;
 };
 
 struct IFID {

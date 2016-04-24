@@ -9,6 +9,7 @@ TEST(Forward, detect_EXMEM_hazard_ALUSRC1)
 	IDEX idex;
 	EXMEM exmem;
 	MEMWB memwb;
+	IFID ifid;
 	
 	//ID/EX
 	idex.read1 = 0x0002;
@@ -21,7 +22,7 @@ TEST(Forward, detect_EXMEM_hazard_ALUSRC1)
 	memwb.wb_controls.mem_to_reg = 0;
 	memwb.write_reg = 0x0000;
 
-	fwd.signals_in(idex, exmem, memwb);
+	fwd.signals_in(ifid, idex, exmem, memwb);
 	fwd.tick();
 	fwd.tock();
 	fwd_out = fwd.signals_out();
@@ -38,6 +39,7 @@ TEST(Forward, detect_EXMEM_hazard_ALUSRC2)
 	IDEX idex;
 	EXMEM exmem;
 	MEMWB memwb;
+	IFID ifid;
 
 	//ID/EX
 	idex.read1 = 0x0004;
@@ -50,7 +52,7 @@ TEST(Forward, detect_EXMEM_hazard_ALUSRC2)
 	memwb.wb_controls.mem_to_reg = 0;
 	memwb.write_reg = 0x0000;
 
-	fwd.signals_in(idex, exmem, memwb);
+	fwd.signals_in(ifid, idex, exmem, memwb);
 	fwd.tick();
 	fwd.tock();
 	fwd_out = fwd.signals_out();
@@ -67,6 +69,7 @@ TEST(Forward, detect_MEMWB_hazard_ALUSRC1)
 	IDEX idex;
 	EXMEM exmem;
 	MEMWB memwb;
+	IFID ifid;
 
 	//ID/EX
 	idex.read1 = 0x0002;
@@ -79,7 +82,7 @@ TEST(Forward, detect_MEMWB_hazard_ALUSRC1)
 	memwb.wb_controls.mem_to_reg = 0;
 	memwb.write_reg = 0x0002;
 
-	fwd.signals_in(idex, exmem, memwb);
+	fwd.signals_in(ifid, idex, exmem, memwb);
 	fwd.tick();
 	fwd.tock();
 	fwd_out = fwd.signals_out();
@@ -96,6 +99,7 @@ TEST(Forward, detect_MEMWB_hazard_ALUSRC2)
 	IDEX idex;
 	EXMEM exmem;
 	MEMWB memwb;
+	IFID ifid;
 
 	//ID/EX
 	idex.read1 = 0x0004;
@@ -108,7 +112,7 @@ TEST(Forward, detect_MEMWB_hazard_ALUSRC2)
 	memwb.wb_controls.mem_to_reg = 0;
 	memwb.write_reg = 0x0002;
 
-	fwd.signals_in(idex, exmem, memwb);
+	fwd.signals_in(ifid, idex, exmem, memwb);
 	fwd.tick();
 	fwd.tock();
 	fwd_out = fwd.signals_out();
@@ -125,6 +129,7 @@ TEST(Forward, detect_double_hazard_EXMEM)
 	IDEX idex;
 	EXMEM exmem;
 	MEMWB memwb;
+	IFID ifid;
 
 	//ID/EX
 	idex.read1 = 0x0002;
@@ -137,7 +142,7 @@ TEST(Forward, detect_double_hazard_EXMEM)
 	memwb.wb_controls.mem_to_reg = 0;
 	memwb.write_reg = 0x0004;
 
-	fwd.signals_in(idex, exmem, memwb);
+	fwd.signals_in(ifid, idex, exmem, memwb);
 	fwd.tick();
 	fwd.tock();
 	fwd_out = fwd.signals_out();
@@ -154,6 +159,7 @@ TEST(Forward, detect_double_hazard_MEMWB)
 	IDEX idex;
 	EXMEM exmem;
 	MEMWB memwb;
+	IFID ifid;
 
 	//ID/EX
 	idex.read1 = 0x0004;
@@ -166,7 +172,7 @@ TEST(Forward, detect_double_hazard_MEMWB)
 	memwb.wb_controls.mem_to_reg = 0;
 	memwb.write_reg = 0x0004;
 
-	fwd.signals_in(idex, exmem, memwb);
+	fwd.signals_in(ifid, idex, exmem, memwb);
 	fwd.tick();
 	fwd.tock();
 	fwd_out = fwd.signals_out();
@@ -183,6 +189,7 @@ TEST(Forward, detect_double_hazard_EXMEM_MEMWB)
 	IDEX idex;
 	EXMEM exmem;
 	MEMWB memwb;
+	IFID ifid;
 
 	//ID/EX
 	idex.read1 = 0x0002;
@@ -195,7 +202,7 @@ TEST(Forward, detect_double_hazard_EXMEM_MEMWB)
 	memwb.wb_controls.mem_to_reg = 0;
 	memwb.write_reg = 0x0004;
 
-	fwd.signals_in(idex, exmem, memwb);
+	fwd.signals_in(ifid, idex, exmem, memwb);
 	fwd.tick();
 	fwd.tock();
 	fwd_out = fwd.signals_out();
@@ -214,6 +221,7 @@ TEST(Forward, detect_double_hazard_MEMWB_EXMEM)
 	IDEX idex;
 	EXMEM exmem;
 	MEMWB memwb;
+	IFID ifid;
 
 	//ID/EX
 	idex.read1 = 0x0004;
@@ -226,7 +234,7 @@ TEST(Forward, detect_double_hazard_MEMWB_EXMEM)
 	memwb.wb_controls.mem_to_reg = 0;
 	memwb.write_reg = 0x0004;
 
-	fwd.signals_in(idex, exmem, memwb);
+	fwd.signals_in(ifid, idex, exmem, memwb);
 	fwd.tick();
 	fwd.tock();
 	fwd_out = fwd.signals_out();

@@ -16,8 +16,10 @@ class ID
 	uint8_t read1;
 	uint8_t read2;
 
+	FRWD_Out _fwdout;
+
 public:
-	void signals_in(const IFID&, const Controls&, uint8_t write_reg, uint16_t write_data);
+	void signals_in(const IFID&, const Controls&, uint8_t write_reg, uint16_t write_data, FRWD_Out fwdout);
 	void tick();
 	void tock();
 	IDEX signals_out() const;

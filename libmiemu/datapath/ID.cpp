@@ -1,7 +1,9 @@
 #include "ID.h"
 
-void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, uint16_t write_data)
+void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, uint16_t write_data, FRWD_Out fwdout)
 {
+	_fwdout = fwdout;
+
 	_controls = ctrl;
 	_ifid = ifid;
 
@@ -57,6 +59,9 @@ uint16_t ID::new_pc_address_out() const
 void ID::recompute_signals_out()
 {
 	uint8_t write_reg;
+	uint16_t data1;
+	uint16_t data2;
+
 	if(_controls.id_controls.reg_write) {
 		write_reg = (_controls.id_controls.reg_position
 		   ? _ifid.instruction >> 8
@@ -85,6 +90,28 @@ void ID::recompute_signals_out()
 			? write_data_bits | 0xFFF0
 			: write_data_bits;
 	}
+	switch (_fwdout.REGSRC1) {
+	case 0:
+		data1 = _register_file.data1_out();
+		break;
+	case 1:
+		data1 = _fwdout.exmem_alu_output;
+		break;
+	case 2:
+		data1 = _fwdout.memwb_data;
+		break;
+	}
+	switch (_fwdout.REGSRC2) {
+	case 0:
+		data2 = _register_file.data2_out();
+		break;
+	case 1:
+		data2 = _fwdout.exmem_alu_output;
+		break;
+	case 2:
+		data2 = _fwdout.memwb_data;
+		break;
+	}
 
 	_signals_out = {
 		_controls.ex_controls,
@@ -94,8 +121,8 @@ void ID::recompute_signals_out()
 		read1,
 		read2,
 
-		_register_file.data1_out(),
-		_register_file.data2_out(),
+		data1,
+		data2,
 
 		
 		0, // branch_offset
