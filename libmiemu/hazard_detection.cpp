@@ -16,32 +16,37 @@ void HDU::signals_in(const IFID& ifid, const IDEX& idex, const EXMEM& exmem, con
 void HDU::tick() {
 #pragma region lw
 	//check to see if we need to wait for lw: memRead = 1
-	if (_exmem.mem_controls.mem_read == 1
+	if (_idex.mem_controls.mem_read == 1
+		&& _idex.write_reg != reg::zero 
 		&& (_idex.write_reg == readRegs.first
 			|| _idex.write_reg == readRegs.second))
-		stall = true;
-
-
+		stall = 1;
 
 #pragma endregion
 #pragma region branch
 	//check for dependency in ex stage for branch
-	if (opcode == op::beq || opcode == op::blt
+	else if ((opcode == op::beq || opcode == op::blt)
+		&& _idex.write_reg != reg::zero
 		&& (_idex.write_reg == readRegs.first
 			|| _idex.write_reg == readRegs.second))
-		stall = true;
+		stall = 1;
 	//check for dependency in mem stage for branch
-	if (opcode == op::beq || opcode == op::blt
+	else if ((opcode == op::beq || opcode == op::blt)
+		&& _exmem.write_reg != reg::zero
 		&& (_exmem.write_reg == readRegs.first
 			|| _exmem.write_reg == readRegs.second))
-		stall = true;
-
+		stall = 1;
 
 #pragma endregion
 #pragma region jump
-	//if cur inst == jr, check for jl in pipeline'
-	/*if(opcode == op::jr
-		&& _idex.)*/
+	//if cur inst == jr, check for write to link reg in pipeline
+	else if (opcode == op::jr
+		&& (_idex.write_reg == reg::link
+			|| _exmem.write_reg == reg::link))
+		stall = 1;
+	else
+		stall = 0;
+
 #pragma endregion
 }
 
@@ -52,7 +57,7 @@ void HDU::tock() {
 bool HDU::signals_out() const {
 
 	//needs to return 1 to stall, 0 for normal op
-	return 0;
+	return stall;
 }
 
 std::pair<uint8_t, uint8_t> HDU::getRead(uint16_t _instruction, uint8_t _op)
@@ -85,4 +90,11 @@ std::pair<uint8_t, uint8_t> HDU::getRead(uint16_t _instruction, uint8_t _op)
 			return std::make_pair(0, 0);
 			break;
 	}
+}
+
+bool HDU::run_hazard_unit(const IFID& ifid, const IDEX& idex, const EXMEM& exmem, const MEMWB& memwb) {
+	HDU::signals_in(ifid, idex, exmem, memwb);
+	HDU::tick();
+	HDU::tock();
+	return HDU::signals_out();
 }

@@ -18,9 +18,10 @@ TEST(HDU, branch_previousRinstruct) {
 	Controls controls = {};
 	bool stall;
 
-	if_block.set_pc(0x1234);
+	if_block.set_pc(0x0004);
 
 	ifid.instruction = inst::beq(reg::t0, reg::t1, 0x01);
+	mem.set(0x0004, ifid.instruction);
 
 	idex.mem_controls.mem_read = 0;
 	idex.write_reg = reg::t0;
@@ -47,7 +48,7 @@ TEST(HDU, branch_previousRinstruct) {
 	//check that stall was passed out of HDU
 	EXPECT_EQ(1, stall);
 	//check that PC was not changed
-	EXPECT_EQ(0x1234, if_block.get_pc());
+	EXPECT_EQ(0x0004, if_block.get_pc());
 	EXPECT_EQ(ifid.instruction, ifid2.instruction);
 	EXPECT_EQ(0, idex2.data1);
 
@@ -64,7 +65,7 @@ TEST(HDU, branch_previousload) {
 	IFControls ifcontrols;
 	bool stall;
 
-	if_block.set_pc(0x1234);
+	if_block.set_pc(0x0004);
 
 	ifid.instruction = inst::beq(reg::t0, reg::t1, 0x01);
 
@@ -86,7 +87,7 @@ TEST(HDU, branch_previousload) {
 	//check that stall was passed out of HDU
 	EXPECT_EQ(1, stall);
 	//check that PC was not changed
-	EXPECT_EQ(0x1234, if_block.get_pc());
+	EXPECT_EQ(0x0004, if_block.get_pc());
 
 }
 
@@ -101,7 +102,7 @@ TEST(HDU, branch_2_previousload) {
 	IFControls ifcontrols;
 	bool stall;
 
-	if_block.set_pc(0x1234);
+	if_block.set_pc(0x0004);
 
 	ifid.instruction = inst::beq(reg::t0, reg::t1, 0x01);
 
@@ -127,7 +128,7 @@ TEST(HDU, branch_2_previousload) {
 	//check that stall was passed out of HDU
 	EXPECT_EQ(1, stall);
 	//check that PC was not changed
-	EXPECT_EQ(0x1234, if_block.get_pc());
+	EXPECT_EQ(0x0004, if_block.get_pc());
 
 }
 
@@ -147,7 +148,7 @@ TEST(HDU, loaduse_rt_rs) {
 	IFControls ifcontrols;
 	bool stall;
 
-	if_block.set_pc(0x1234);
+	if_block.set_pc(0x0004);
 
 	ifid.instruction = inst::add(reg::t0, reg::t1, reg::t0);
 
@@ -171,7 +172,7 @@ TEST(HDU, loaduse_rt_rs) {
 	//check that stall was passed out of HDU
 	EXPECT_EQ(1, stall);
 	//check that PC was not changed
-	EXPECT_EQ(0x1234, if_block.get_pc());
+	EXPECT_EQ(0x0004, if_block.get_pc());
 
 }
 
@@ -191,7 +192,7 @@ TEST(HDU, loaduse_rt_rt) {
 	IFControls ifcontrols;
 	bool stall;
 
-	if_block.set_pc(0x1234);
+	if_block.set_pc(0x0004);
 
 	ifid.instruction = inst::add(reg::t0, reg::t0, reg::t1);
 
@@ -215,6 +216,6 @@ TEST(HDU, loaduse_rt_rt) {
 	//check that stall was passed out of HDU
 	EXPECT_EQ(1, stall);
 	//check that PC was not changed
-	EXPECT_EQ(0x1234, if_block.get_pc());
+	EXPECT_EQ(0x0004, if_block.get_pc());
 
 }

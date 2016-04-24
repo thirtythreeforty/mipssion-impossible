@@ -11,6 +11,7 @@ class IF
 {
 	uint16_t program_counter = 0;
 	IFID signals_o;
+	bool _stall = 0;
 
 public:
 	void set_pc(uint16_t);

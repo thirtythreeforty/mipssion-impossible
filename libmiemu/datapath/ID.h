@@ -13,6 +13,7 @@ class ID
 
 	IDEX _signals_out;
 	uint16_t _new_pc_address_out;
+	bool _stall = 0;
 
 public:
 	void signals_in(const IFID&, const Controls&, uint8_t write_reg, uint16_t write_data, bool stall);

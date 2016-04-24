@@ -4,7 +4,7 @@ void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, u
 {
 	_controls = ctrl;
 	_ifid = ifid;
-
+	_stall = stall;
 	uint8_t read1;
 	uint8_t read2;
 	if(ctrl.id_controls.jump_link) {
@@ -81,20 +81,36 @@ void ID::recompute_signals_out()
 			? write_data_bits | 0xFFF0
 			: write_data_bits;
 	}
+	if (_stall) {
+		_signals_out = {
+			{},
+			{},
+			{},
 
-	_signals_out = {
-		_controls.ex_controls,
-		_controls.mem_controls,
-		_controls.wb_controls,
+			0,
+			0,
 
-		_register_file.data1_out(),
-		_register_file.data2_out(),
+			0, // branch_offset
 
-		0, // branch_offset
+			0,
+			0,
+		};
+	}
+	else {
+		_signals_out = {
+			_controls.ex_controls,
+			_controls.mem_controls,
+			_controls.wb_controls,
 
-		write_reg,
-		write_data,
-	};
+			_register_file.data1_out(),
+			_register_file.data2_out(),
+
+			0, // branch_offset
+
+			write_reg,
+			write_data,
+		};
+	}
 }
 
 void ID::recompute_new_pc_address_out()
