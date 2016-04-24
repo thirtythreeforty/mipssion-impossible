@@ -23,6 +23,9 @@ void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, u
 	const bool write = (write_reg != 0);
 
 	_register_file.signals_in(read1, read2, write, write_reg, write_data);
+
+	recompute_signals_out();
+	recompute_new_pc_address_out();
 }
 
 void ID::tick()
@@ -36,6 +39,9 @@ void ID::tick()
 void ID::tock()
 {
 	_register_file.tock();
+
+	recompute_signals_out();
+	recompute_new_pc_address_out();
 }
 
 IDEX ID::signals_out() const
