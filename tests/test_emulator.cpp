@@ -246,9 +246,10 @@ TEST(Emulator, beq)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 6> instructions = {
+	std::array<uint16_t, 7> instructions = {
 		inst::lbi(reg::a0, 2),
 		inst::nop(), // hazard avoidance
+		inst::nop(),
 		inst::beq(reg::zero, reg::zero, 2), // this is 2 + next instruction
 		inst::lbi(reg::v0, 6), // should not execute
 		inst::beq(reg::zero, reg::a0, 2),
