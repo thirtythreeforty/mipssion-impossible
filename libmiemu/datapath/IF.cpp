@@ -14,10 +14,13 @@ uint16_t IF::get_pc() const
 void IF::signals_in(uint16_t new_pc_address, const IFControls& controls, bool stall)
 {
 	_stall = stall;
-	if(controls.use_new_address && !_stall)
-		IF::program_counter = new_pc_address;
-	else
-		program_counter = signals_o.pc_plus_2;
+	if (!stall)
+	{
+		if (controls.use_new_address)
+			IF::program_counter = new_pc_address;
+		else
+			program_counter = signals_o.pc_plus_2;
+	}
 }
 
 void IF::tick(const Memory& mem)

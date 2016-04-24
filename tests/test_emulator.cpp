@@ -239,7 +239,7 @@ TEST(Emulator, jr)
 	step_emulator_to(emulator, finish);
 
 	EXPECT_EQ(4, emulator.get_datapath().get_ID().get_register_file().get_register(14));
-	EXPECT_EQ(2, emulator.get_datapath().get_ID().get_register_file().get_register(reg::a0));
+	EXPECT_EQ(0, emulator.get_datapath().get_ID().get_register_file().get_register(reg::a0));
 }
 
 TEST(Emulator, beq)
