@@ -14,7 +14,6 @@ add_executable(mitests
 	test_mem.cpp
 	test_wb.cpp
 	test_forward.cpp
-	test_hazard.cpp
 	test_emulator.cpp
 )
 set_property(TARGET mitests PROPERTY CXX_STANDARD 14)

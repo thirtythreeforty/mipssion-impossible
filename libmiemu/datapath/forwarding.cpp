@@ -1,5 +1,6 @@
 #include "forwarding.h"
 
+
 void Forward::signals_in(const IDEX& idex, const EXMEM& exmem, const MEMWB& memwb)
 {
 	_exmem_rd = exmem.write_reg;
@@ -7,7 +8,6 @@ void Forward::signals_in(const IDEX& idex, const EXMEM& exmem, const MEMWB& memw
 
 	_exmem_output = exmem.alu_output;
 	_memwb_output = memwb.memory_data;
-
 
 	_idex_rs = idex.read1;
 	_idex_rt = idex.read2;

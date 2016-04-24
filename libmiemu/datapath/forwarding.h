@@ -3,13 +3,15 @@
 
 #include "signals.h"
 
+
 class Forward
 {
 private:
-	uint16_t _exmem_rd;
-	uint16_t _memwb_rd;
-	uint16_t _idex_rs;
-	uint16_t _idex_rt;
+
+	uint8_t _exmem_rd;
+	uint8_t _memwb_rd;
+	uint8_t _idex_rs;
+	uint8_t _idex_rt;
 
 	uint16_t _exmem_output;
 	uint16_t _memwb_output;
