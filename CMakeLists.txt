@@ -5,7 +5,7 @@ if (MSVC)
   # Fix the 1000% nonsense that is Visual Studio.  The build uses
   # conflicting types of libraries by default (!), leading to link
   # errors.  This forces the correct library type.
-  set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_DEBUG} /MDd")
 endif()
 
 # Set up tests
