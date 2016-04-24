@@ -67,9 +67,9 @@ std::pair<uint8_t, uint8_t> HDU::getRead(uint16_t _instruction, uint8_t _op)
 		//Use reg position 1, to get read reg 2
 		case op::add:
 		case op::sub:
-		case op::and:
-		case op:: or :
-		case op::xor:
+		case op::and_:
+		case op:: or_ :
+		case op::xor_:
 		case op::sll:
 		case op::srl:
 			return std::make_pair((_instruction >> 4) & 0x000F, (_instruction >> 0) & 0x000F);

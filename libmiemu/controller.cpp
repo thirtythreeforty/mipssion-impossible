@@ -98,7 +98,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case op::and:
+	case op::and_:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -124,7 +124,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case op::or:
+	case op::or_:
 		//IF
 		if_controls.use_new_address = 0;
 
@@ -150,7 +150,7 @@ Controls Controller::controls_out() const
 		wb_controls.mem_to_reg = 0;
 		break;
 
-	case op::xor:
+	case op::xor_:
 		//IF
 		if_controls.use_new_address = 0;
 
