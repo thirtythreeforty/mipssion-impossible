@@ -57,3 +57,9 @@ uint16_t RegisterFile::get_register(uint8_t reg) const
 {
 	return _registers[reg];
 }
+
+void RegisterFile::set_register(uint8_t reg, uint16_t data)
+{
+	_registers[reg] = data;
+}
+

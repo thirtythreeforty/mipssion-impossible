@@ -12,17 +12,24 @@
 int do_load(Emulator& emu, int argc, const char* argv[])
 {
 	if(argc < 2) {
-		return false;
+		return -1;
 	}
 
 	// Open the files
-	std::fstream mem(argv[1]);
-	if(!mem.good()) {
+	std::fstream mem_file(argv[1], std::ios::in);
+	if(!mem_file.good()) {
 		std::cerr << "Cannot open memory image \"" << argv[1] << "\"!\n";
 		return -1;
 	}
 
-	return load_stream(emu.get_memory(), mem);
+	std::fstream reg_file(argv[2], std::ios::in);
+	if(!reg_file.good()) {
+		std::cerr << "Cannot open register image \"" << argv[1] << "\"!\n";
+		return -1;
+	}
+
+	load_stream(emu.get_datapath().get_ID().get_register_file(), reg_file);
+	return load_stream(emu.get_memory(), mem_file);
 }
 
 std::string read_command(REPL& repl, const std::string& prev_cmd)

@@ -32,6 +32,7 @@ public:
 	const IF& get_IF() const { return _IF; }
 	const IFID& get_IFID() const { return _IFID; }
 	const ID& get_ID() const { return _ID; }
+	ID& get_ID() { return _ID; }
 	const IDEX& get_IDEX() const { return _IDEX; }
 	const EX& get_EX() const { return _EX; }
 	const EXMEM& get_EXMEM() const { return _EXMEM; }
