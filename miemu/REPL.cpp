@@ -59,11 +59,7 @@ enum class Modifier {
 using Item = std::tuple<const char*, Modifier, uint16_t>;
 void print_contents(const char* header, std::vector<Item> items)
 {
-	std::cout << termcolor::blue << termcolor::bold << header << "\n";
-	for(auto len = std::strlen(header); len > 0; --len) {
-		std::cout << "-";
-	}
-	std::cout << "\n" << termcolor::reset;
+	std::cout << termcolor::blue << termcolor::bold << header << "\n" << termcolor::reset;
 
 	if(items.empty())
 		return;
