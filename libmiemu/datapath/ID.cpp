@@ -1,12 +1,13 @@
 #include "ID.h"
 
-void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, uint16_t write_data, FRWD_Out fwdout)
+void ID::signals_in(const IFID& ifid, const Controls& ctrl, uint8_t write_reg, uint16_t write_data, FRWD_Out fwdout, bool stall)
 {
 	_fwdout = fwdout;
 
 	_controls = ctrl;
 	_ifid = ifid;
-
+	_stall = stall;
+	
 	if(ctrl.id_controls.jump_link) {
 		read1 = 14; // link register
 		read2 = 0;
@@ -62,12 +63,12 @@ void ID::recompute_signals_out()
 	uint16_t data1;
 	uint16_t data2;
 
-	if(_controls.id_controls.reg_write) {
+	if (_controls.id_controls.reg_write) {
 		write_reg = (_controls.id_controls.reg_position
-		   ? _ifid.instruction >> 8
-		   : _ifid.instruction) & 0x000F;
+			? _ifid.instruction >> 8
+			: _ifid.instruction) & 0x000F;
 	}
-	else if(_controls.id_controls.write_link) {
+	else if (_controls.id_controls.write_link) {
 		write_reg = 14; // link register
 	}
 	else {
@@ -75,10 +76,10 @@ void ID::recompute_signals_out()
 	}
 
 	uint16_t write_data;
-	if(_controls.id_controls.write_link) {
+	if (_controls.id_controls.write_link) {
 		write_data = _ifid.pc_plus_2;
 	}
-	else if(_controls.id_controls.use_8bit_data) {
+	else if (_controls.id_controls.use_8bit_data) {
 		const uint8_t write_data_bits = (_ifid.instruction >> 4) & 0x00FF;
 		write_data = write_data_bits >= 0x80
 			? write_data_bits | 0xFF00
@@ -90,6 +91,7 @@ void ID::recompute_signals_out()
 			? write_data_bits | 0xFFF0
 			: write_data_bits;
 	}
+
 	switch (_fwdout.REGSRC1) {
 	case 0:
 		data1 = _register_file.data1_out();
@@ -113,24 +115,41 @@ void ID::recompute_signals_out()
 		break;
 	}
 
-	_signals_out = {
-		_controls.ex_controls,
-		_controls.mem_controls,
-		_controls.wb_controls,
+	if (_stall) {
+		_signals_out = {
+			{},
+			{},
+			{},
 
-		read1,
-		read2,
+			0,
+			0,
 
-		data1,
-		data2,
+			0,
+			0,
 
-		
-		0, // branch_offset
+			0, // branch_offset
 
-		write_reg,
-		write_data,
-	};
+			0,
+			0,
+		};
+	}
+	else {
+		_signals_out = {
+			_controls.ex_controls,
+			_controls.mem_controls,
+			_controls.wb_controls,
+			read1,
+			read2,
 
+			data1,
+			data2,
+
+			0, // branch_offset
+
+			write_reg,
+			write_data,
+		};
+	}
 }
 
 void ID::recompute_new_pc_address_out()

@@ -5,6 +5,7 @@
 #include "program_memory.h"
 #include "controller.h"
 #include "datapath/forwarding.h"
+#include "hazard_detection.h"
 
 class Emulator
 {
@@ -13,6 +14,7 @@ class Emulator
 	Controller _controller;
 	Forward _fwd;
 	FRWD_Out _fwdout;
+	HDU	_hazard;
 
 public:
 	void step();

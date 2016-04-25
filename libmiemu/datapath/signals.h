@@ -48,7 +48,6 @@ struct IDControls {
 
 struct EXControls {
 	bool alu_src = false;
-
 	ALUOp alu_op = ALUOp::Add;
 
 	EXControls() = default;
@@ -60,6 +59,7 @@ struct EXControls {
 
 struct MEMControls {
 	bool mem_write = false;
+	bool mem_read = false;
 
 	MEMControls() = default;
 	MEMControls(bool mem_write)
@@ -136,13 +136,10 @@ struct IDEX {
 	EXControls ex_controls;
 	MEMControls mem_controls;
 	WBControls wb_controls;
-
-
-	uint8_t read1 = 0;
-	uint8_t read2 = 0;
 	uint16_t data1 = 0;
 	uint16_t data2 = 0;
-
+	uint8_t read1 = 0;
+	uint8_t read2 = 0;
 	int16_t branch_offset = 0;
 
 	uint8_t write_reg = 0;
@@ -153,6 +150,8 @@ struct IDEX {
 		: ex_controls(ex_controls)
 		, mem_controls(mem_controls)
 		, wb_controls(wb_controls)
+		, read1(read1)
+		, read2(read2)
 		, data1(data1)
 		, data2(data2)
 		, branch_offset(branch_offset)
