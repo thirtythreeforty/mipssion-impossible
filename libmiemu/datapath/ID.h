@@ -28,6 +28,7 @@ public:
 	uint16_t new_pc_address_out() const;
 
 	const RegisterFile& get_register_file() const { return _register_file; }
+	RegisterFile& get_register_file() { return _register_file; }
 
 private:
 	void recompute_signals_out();

@@ -29,6 +29,7 @@ public:
 	uint16_t data2_out() const;
 
 	uint16_t get_register(uint8_t reg) const;
+	void set_register(uint8_t reg, uint16_t data);
 };
 
 #endif
