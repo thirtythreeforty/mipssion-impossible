@@ -45,6 +45,7 @@ namespace op
 		lbi = 0b1111,
 	};
 }
+
 namespace inst
 {
 	namespace

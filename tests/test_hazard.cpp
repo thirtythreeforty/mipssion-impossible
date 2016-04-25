@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "hazard_detection.h"
+#include "datapath/forwarding.h"
 #include "instructions.h"
 #include "datapath/IF.h"
 #include "datapath/ID.h"
@@ -11,6 +12,7 @@ TEST(HDU, branch_previousRinstruct) {
 	EXMEM exmem = {};
 	MEMWB memwb = {};
 	HDU hdu;
+	FRWD_Out fwdout = {};
 	Memory mem;
 	IF if_block;
 	ID id_block;
@@ -43,7 +45,7 @@ TEST(HDU, branch_previousRinstruct) {
 	if_block.tock(mem);
 	ifid2 = if_block.signals_out();
 
-	id_block.signals_in(ifid2, controls, 0x00, 0x00, 1);
+	id_block.signals_in(ifid2, controls, 0x00, 0x00, fwdout, 1);
 	id_block.tick();
 	id_block.tock();
 	idex2 = id_block.signals_out();

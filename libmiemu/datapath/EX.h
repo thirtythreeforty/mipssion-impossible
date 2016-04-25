@@ -10,7 +10,7 @@ class EX
 	EXMEM _signals_out;
 
 public:
-	void signals_in(const IDEX&);
+	void signals_in(const IDEX&, FRWD_Out);
 	void tick();
 	void tock();
 	EXMEM signals_out() const;

@@ -15,10 +15,13 @@ class ID
 	uint16_t _new_pc_address_out;
 	uint8_t read1;
 	uint8_t read2;
-	bool _stall = 0;
+	uint16_t data1;
+	uint16_t data2;
+	FRWD_Out _fwdout;
+	bool _stall;
 
 public:
-	void signals_in(const IFID&, const Controls&, uint8_t write_reg, uint16_t write_data, bool stall);
+	void signals_in(const IFID&, const Controls&, uint8_t write_reg, uint16_t write_data, FRWD_Out fwdout, bool stall);
 	void tick();
 	void tock();
 	IDEX signals_out() const;

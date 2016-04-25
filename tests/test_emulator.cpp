@@ -31,11 +31,9 @@ TEST(Emulator, add)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 5> instructions = {
+	std::array<uint16_t, 3> instructions = {
 		inst::lbi(reg::a0, 2),
 		inst::lbi(reg::a1, 2),
-		inst::nop(), // hazard avoidance
-		inst::nop(),
 		inst::add(reg::a2, reg::a0, reg::a1),
 	};
 
@@ -49,10 +47,8 @@ TEST(Emulator, addi)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 4> instructions = {
+	std::array<uint16_t, 2> instructions = {
 		inst::lbi(reg::a0, 2),
-		inst::nop(), // hazard avoidance
-		inst::nop(),
 		inst::addi(reg::a2, reg::a0, 2),
 	};
 
@@ -66,11 +62,9 @@ TEST(Emulator, sub)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 5> instructions = {
+	std::array<uint16_t, 3> instructions = {
 		inst::lbi(reg::a0, 6),
 		inst::lbi(reg::a1, 2),
-		inst::nop(), // hazard avoidance
-		inst::nop(),
 		inst::sub(reg::a2, reg::a0, reg::a1),
 	};
 
@@ -84,11 +78,9 @@ TEST(Emulator, and)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 5> instructions = {
+	std::array<uint16_t, 3> instructions = {
 		inst::lbi(reg::a0, 6),
 		inst::lbi(reg::a1, 2),
-		inst::nop(), // hazard avoidance
-		inst::nop(),
 		inst::and_(reg::a2, reg::a0, reg::a1),
 	};
 
@@ -102,11 +94,9 @@ TEST(Emulator, or)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 5> instructions = {
+	std::array<uint16_t, 3> instructions = {
 		inst::lbi(reg::a0, 6),
 		inst::lbi(reg::a1, 8),
-		inst::nop(), // hazard avoidance
-		inst::nop(),
 		inst::or_(reg::a2, reg::a0, reg::a1),
 	};
 
@@ -120,11 +110,9 @@ TEST(Emulator, xor)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 5> instructions = {
+	std::array<uint16_t, 3> instructions = {
 		inst::lbi(reg::a0, 6),
 		inst::lbi(reg::a1, 8),
-		inst::nop(), // hazard avoidance
-		inst::nop(),
 		inst::xor_(reg::a2, reg::a0, reg::a1),
 	};
 
@@ -138,10 +126,8 @@ TEST(Emulator, sll)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 4> instructions = {
+	std::array<uint16_t, 2> instructions = {
 		inst::lbi(reg::a0, 6),
-		inst::nop(), // hazard avoidance
-		inst::nop(),
 		inst::sll(reg::a0, reg::a0, 3),
 	};
 
@@ -155,10 +141,8 @@ TEST(Emulator, srl)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 4> instructions = {
+	std::array<uint16_t, 2> instructions = {
 		inst::lbi(reg::a0, 25),
-		inst::nop(), // hazard avoidance
-		inst::nop(),
 		inst::srl(reg::a0, reg::a0, 3),
 	};
 
@@ -224,14 +208,11 @@ TEST(Emulator, jr)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 9> instructions = {
+	std::array<uint16_t, 6> instructions = {
 		inst::nop(),
 		inst::jl(8),
 		inst::lbi(reg::a0, 2),
-		inst::j(16),
-		inst::nop(), // Clear data hazard before jr
-		inst::nop(),
-		inst::nop(),
+		inst::j(10),
 		inst::jr(),
 		inst::nop()
 	};
@@ -247,10 +228,8 @@ TEST(Emulator, beq)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 7> instructions = {
+	std::array<uint16_t, 5> instructions = {
 		inst::lbi(reg::a0, 2),
-		inst::nop(), // hazard avoidance
-		inst::nop(),
 		inst::beq(reg::zero, reg::zero, 2), // this is 2 + next instruction
 		inst::lbi(reg::v0, 6), // should not execute
 		inst::beq(reg::zero, reg::a0, 2),
@@ -268,9 +247,8 @@ TEST(Emulator, blt)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 6> instructions = {
+	std::array<uint16_t, 5> instructions = {
 		inst::lbi(reg::a0, 2),
-		inst::nop(), // hazard avoidance for second blt
 		inst::blt(reg::zero, reg::zero, 4), // false
 		inst::lbi(reg::v0, 6), // should execute
 		inst::blt(reg::zero, reg::a0, 4), // true

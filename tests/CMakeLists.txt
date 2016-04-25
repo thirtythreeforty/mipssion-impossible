@@ -13,6 +13,7 @@ add_executable(mitests
 	test_ex.cpp
 	test_mem.cpp
 	test_wb.cpp
+	test_forward.cpp
 	test_hazard.cpp
 	test_emulator.cpp
 )

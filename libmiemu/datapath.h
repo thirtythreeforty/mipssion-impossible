@@ -24,7 +24,7 @@ class Datapath
 	WB _WB;
 
 public:
-	void control_signals_in(const Controls&, bool);
+	void control_signals_in(const Controls&, FRWD_Out, bool);
 	void tick(Memory& memory);
 	void tock(Memory& memory);
 	ControlInputs control_inputs_out() const;

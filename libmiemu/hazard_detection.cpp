@@ -1,16 +1,16 @@
 #include "hazard_detection.h"
 #include "instructions.h"
 
-
 void HDU::signals_in(const IFID& ifid, const IDEX& idex, const EXMEM& exmem, const MEMWB& memwb) {
 	
 	_ifid = ifid;
 	_idex = idex;
 	_exmem = exmem;
 	_memwb = memwb;
-	
+
 	opcode = (ifid.instruction & 0xF000) >> 12;
 	readRegs = getRead(ifid.instruction, opcode);
+	
 }
 
 void HDU::tick() {
@@ -61,6 +61,7 @@ bool HDU::signals_out() const {
 	//needs to return 1 to stall, 0 for normal op
 	return stall;
 }
+
 
 std::pair<uint8_t, uint8_t> HDU::getRead(uint16_t _instruction, uint8_t _op)
 {
