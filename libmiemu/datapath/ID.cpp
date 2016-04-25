@@ -60,8 +60,6 @@ uint16_t ID::new_pc_address_out() const
 void ID::recompute_signals_out()
 {
 	uint8_t write_reg;
-	uint16_t data1;
-	uint16_t data2;
 
 	if (_controls.id_controls.reg_write) {
 		write_reg = (_controls.id_controls.reg_position
@@ -165,11 +163,11 @@ void ID::recompute_new_pc_address_out()
 		_new_pc_address_out = _register_file.data1_out();
 	}
 	else if(_controls.id_controls.branch_z &&
-	        _register_file.data1_out() == _register_file.data2_out()) {
+	       data1 == data2) {
 	    _new_pc_address_out = _ifid.pc_plus_2 + offset;
 	}
 	else if(_controls.id_controls.branch_lt &&
-	        _register_file.data1_out() < _register_file.data2_out()) {
+	        data1 < data2) {
 	    _new_pc_address_out = _ifid.pc_plus_2 + offset;
 	}
 	else {

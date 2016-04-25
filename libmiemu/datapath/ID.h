@@ -15,6 +15,8 @@ class ID
 	uint16_t _new_pc_address_out;
 	uint8_t read1;
 	uint8_t read2;
+	uint16_t data1;
+	uint16_t data2;
 	FRWD_Out _fwdout;
 	bool _stall;
 
