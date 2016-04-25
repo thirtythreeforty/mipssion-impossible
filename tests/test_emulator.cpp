@@ -224,12 +224,13 @@ TEST(Emulator, jr)
 {
 	Emulator emulator;
 
-	std::array<uint16_t, 8> instructions = {
+	std::array<uint16_t, 9> instructions = {
 		inst::nop(),
 		inst::jl(8),
 		inst::lbi(reg::a0, 2),
-		inst::j(14),
+		inst::j(16),
 		inst::nop(), // Clear data hazard before jr
+		inst::nop(),
 		inst::nop(),
 		inst::jr(),
 		inst::nop()

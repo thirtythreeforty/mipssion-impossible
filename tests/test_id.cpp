@@ -19,7 +19,7 @@ TEST(ID, JumpPCAddress)
 	Controls ctrl = controller.controls_out();
 
 	ID id;
-	id.signals_in(ifid, ctrl, 0, 0);
+	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
 	id.tock();
 
@@ -38,7 +38,7 @@ TEST(ID, RegistersWrite)
 		controller.signals_in({ifid.instruction});
 		Controls ctrl = controller.controls_out();
 
-		id.signals_in(ifid, ctrl, i, i);
+		id.signals_in(ifid, ctrl, i, i, 0);
 		id.tick();
 		id.tock();
 	}
@@ -50,7 +50,7 @@ TEST(ID, RegistersWrite)
 
 		ctrl.id_controls.reg_write = false;
 
-		id.signals_in(ifid, ctrl, 0, 0);
+		id.signals_in(ifid, ctrl, 0, 0, 0);
 		id.tick();
 		id.tock();
 		ASSERT_EQ(i, id.signals_out().data1);
@@ -70,10 +70,10 @@ TEST(ID, BranchPCAddress)
 	controller.signals_in({ifid.instruction});
 	Controls ctrl = controller.controls_out();
 
-	id.signals_in(ifid, ctrl, 1, 1);
+	id.signals_in(ifid, ctrl, 1, 1, 0);
 	id.tick();
 	id.tock();
-	id.signals_in(ifid, ctrl, 2, 2);
+	id.signals_in(ifid, ctrl, 2, 2, 0);
 	id.tick();
 	id.tock();
 
@@ -81,7 +81,7 @@ TEST(ID, BranchPCAddress)
 	ifid.instruction = inst::blt(2, 1, 4);
 	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
-	id.signals_in(ifid, ctrl, 0, 0);
+	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2, id.new_pc_address_out());
@@ -90,7 +90,7 @@ TEST(ID, BranchPCAddress)
 	ifid.instruction = inst::blt(1, 2, 4);
 	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
-	id.signals_in(ifid, ctrl, 0, 0);
+	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2 + 4, id.new_pc_address_out());
@@ -99,7 +99,7 @@ TEST(ID, BranchPCAddress)
 	ifid.instruction = inst::beq(2, 1, 4);
 	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
-	id.signals_in(ifid, ctrl, 0, 0);
+	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2, id.new_pc_address_out());
@@ -108,7 +108,7 @@ TEST(ID, BranchPCAddress)
 	ifid.instruction = inst::beq(0, 0, 4);
 	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
-	id.signals_in(ifid, ctrl, 0, 0);
+	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2 + 4, id.new_pc_address_out());
@@ -117,7 +117,7 @@ TEST(ID, BranchPCAddress)
 	ifid.instruction = inst::beq(0, 0, 0xE);
 	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
-	id.signals_in(ifid, ctrl, 0, 0);
+	id.signals_in(ifid, ctrl, 0, 0, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(ifid.pc_plus_2 - 2, id.new_pc_address_out());
@@ -135,13 +135,13 @@ TEST(ID, WriteRegDecode)
 	Controls ctrl = controller.controls_out();
 
 	ctrl.id_controls.reg_write = true;
-	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
+	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(reg::v0, id.signals_out().write_reg);
 
 	ctrl.id_controls.reg_write = false;
-	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
+	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(reg::zero, id.signals_out().write_reg);
@@ -166,7 +166,7 @@ TEST(ID, WriteDataSignExtend)
 			controller.signals_in({ifid.instruction});
 			Controls ctrl = controller.controls_out();
 
-			id.signals_in(ifid, ctrl, 0, 0);
+			id.signals_in(ifid, ctrl, 0, 0, 0);
 			id.tick();
 			id.tock();
 			ASSERT_EQ(i, id.signals_out().write_data);
@@ -178,7 +178,7 @@ TEST(ID, WriteDataSignExtend)
 			controller.signals_in({ifid.instruction});
 			Controls ctrl = controller.controls_out();
 
-			id.signals_in(ifid, ctrl, 0, 0);
+			id.signals_in(ifid, ctrl, 0, 0, 0);
 			id.tick();
 			id.tock();
 			ASSERT_EQ(i | 0xFFF0, id.signals_out().write_data);
@@ -197,7 +197,7 @@ TEST(ID, WriteDataLBI)
 	controller.signals_in({ifid.instruction});
 	Controls ctrl = controller.controls_out();
 
-	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
+	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(0xFFFF, id.signals_out().write_data);
@@ -207,7 +207,7 @@ TEST(ID, WriteDataLBI)
 	controller.signals_in({ifid.instruction});
 	ctrl = controller.controls_out();
 
-	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE);
+	id.signals_in(ifid, ctrl, DONTCARE, DONTCARE, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(0x007F, id.signals_out().write_data);
@@ -228,7 +228,7 @@ TEST(ID, LBIRegisterValues)
 
 	// If this isn't handled correctly, the ID stage will read the 0xF register.
 	// So write data there so we can detect that
-	id.signals_in(ifid, ctrl, 0xF, 0xC0DE);
+	id.signals_in(ifid, ctrl, 0xF, 0xC0DE, 0);
 	id.tick();
 	id.tock();
 	EXPECT_EQ(0, id.signals_out().data1);
