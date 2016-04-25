@@ -7,7 +7,10 @@ void Forward::signals_in(const IFID& ifid, const IDEX& idex, const EXMEM& exmem,
 	_memwb_rd = memwb.write_reg;
 
 	_exmem_output = exmem.alu_output;
-	_memwb_output = memwb.memory_data;
+	if (memwb.wb_controls.mem_to_reg == 1)
+		_memwb_output = memwb.memory_data;
+	else
+		_memwb_output = memwb.alu_output;
 
 	_idex_rs = idex.read1;
 	_idex_rt = idex.read2;
