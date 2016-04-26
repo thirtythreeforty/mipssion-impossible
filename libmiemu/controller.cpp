@@ -394,7 +394,7 @@ Controls Controller::controls_out() const
 		id_controls.jump = 0;
 		id_controls.jump_link = 0;
 		id_controls.write_link = 0;
-		id_controls.reg_position = 0;
+		id_controls.reg_position = 1;
 		id_controls.reg_write = 0;
 		id_controls.use_8bit_data = 0;
 
