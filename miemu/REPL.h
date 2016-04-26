@@ -44,6 +44,8 @@ private:
 	void print_MEMWB();
 	void print_Registers();
 	void print_Memory();
+
+	unsigned int clocks = 0;
 };
 
 #endif

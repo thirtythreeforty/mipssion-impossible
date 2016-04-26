@@ -35,16 +35,17 @@ bool REPL::is_at(uint16_t i)
 void REPL::step()
 {
 	emu.step();
+	clocks += 1;
 }
 
 void REPL::print_prompt()
 {
-	auto status = (is_halted() ? "Halted" : "Ready");
+	auto status = (is_halted() ? "Halted" : "Ready ");
 
 	std::cout
 		<< termcolor::green << termcolor::bold << status
 		<< termcolor::reset
-		<< termcolor::green << " (PC = " << std::setw(4) << std::setfill('0') << std::hex << emu.get_datapath().get_IFID().pc_plus_2 << ") > "
+		<< termcolor::green << " (PC = " << std::setw(4) << std::setfill('0') << std::hex << emu.get_datapath().get_IFID().pc_plus_2 << ", cyc = " << clocks << ") > "
 		<< termcolor::reset;
 	std::cout << std::setfill(' ');
 }
