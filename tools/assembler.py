@@ -2,6 +2,9 @@
 # It is terrible and brittle, do not judge.
 
 def offToHex(offset):
+    if offset < 0:
+        return offToHex(16 + offset)
+
     assert 0 <= offset < 16
     return "%01X" % offset
 def addrToHex(offset):
@@ -99,7 +102,7 @@ def assemble(currloc, locations, line):
         return joinNybbles(opcode,
                            regLookup(tokens[1]),
                            regLookup(tokens[2]),
-                           offToHex(locations[tokens[3]] - currloc + 2))
+                           offToHex(locations[tokens[3]] - (currloc + 1)))
 
     if inst in ['lw', 'sw']:
         import re
