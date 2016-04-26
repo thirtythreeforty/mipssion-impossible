@@ -77,8 +77,9 @@ def assemble(currloc, locations, line):
 
     if inst in ['srl', 'sll']:
         return joinNybbles(opcode,
-                           regLookup(tokens[1]), regLookup(tokens[2]),
-                           litToHex(int(tokens[3], 0)))
+                           regLookup(tokens[2]),
+                           litToHex(int(tokens[3], 0)),
+                           regLookup(tokens[1]))
 
     if inst in ['add', 'sub', 'and', 'or', 'xor']:
         return joinNybbles(opcode,
