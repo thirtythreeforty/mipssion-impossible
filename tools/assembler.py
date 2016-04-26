@@ -99,7 +99,7 @@ def assemble(currloc, locations, line):
         return joinNybbles(opcode,
                            regLookup(tokens[1]),
                            regLookup(tokens[2]),
-                           offToHex(locations[tokens[3]] - currloc + 4))
+                           offToHex(locations[tokens[3]] - currloc + 2))
 
     if inst in ['lw', 'sw']:
         import re
