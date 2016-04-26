@@ -100,8 +100,8 @@ def assemble(currloc, locations, line):
 
     if inst in ['blt', 'beq']:
         return joinNybbles(opcode,
-                           regLookup(tokens[1]),
                            regLookup(tokens[2]),
+                           regLookup(tokens[1]),
                            offToHex(locations[tokens[3]] - (currloc + 1)))
 
     if inst in ['lw', 'sw']:
