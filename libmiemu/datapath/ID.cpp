@@ -153,8 +153,11 @@ void ID::recompute_signals_out()
 void ID::recompute_new_pc_address_out()
 {
 	// Get the offset nybble, shift it left, and sign-extend it.
-	const uint8_t offset_bits = (_ifid.instruction << 1) & 0x000F;
-	const int8_t offset = offset_bits >= 0x08 ? offset_bits | 0xF0 : offset_bits;
+	const uint8_t offset_bits = _ifid.instruction & 0x000F;
+	const uint8_t extended_offset = offset_bits >= 0x08
+		? offset_bits | 0xF0
+		: offset_bits;
+	const int8_t offset = extended_offset << 1;
 
 	if(_controls.id_controls.jump) {
 		_new_pc_address_out = (_ifid.pc_plus_2 & 0xF000) | ((_ifid.instruction & 0x0FFF) << 1);
