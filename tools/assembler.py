@@ -44,7 +44,7 @@ def assemble(currloc, locations, line):
         '$a2',
         '$a3',
         '$13',
-        '$14',
+        '$link',
         '$15',
     ]
 
@@ -97,13 +97,13 @@ def assemble(currloc, locations, line):
 
     if inst in ['blt', 'beq']:
         return joinNybbles(opcode,
-                           offToHex(locations[tokens[3]] - currloc + 4),
+                           regLookup(tokens[1]),
                            regLookup(tokens[2]),
-                           regLookup(tokens[1]))
+                           offToHex(locations[tokens[3]] - currloc + 4))
 
     if inst in ['lw', 'sw']:
         import re
-        m = re.search(r"([\d-]+)+\((.*)\)", tokens[2])
+        m = re.search(r"([\d-]+)\((.*)\)", tokens[2])
         return joinNybbles(opcode,
                            litToHex(int(m.group(1))),
                            regLookup(m.group(2)),
