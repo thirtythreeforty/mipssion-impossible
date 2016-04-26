@@ -45,7 +45,7 @@ void REPL::print_prompt()
 	std::cout
 		<< termcolor::green << termcolor::bold << status
 		<< termcolor::reset
-		<< termcolor::green << " (PC = " << std::setw(4) << std::setfill('0') << std::hex << emu.get_datapath().get_IFID().pc_plus_2 << ", cyc = " << clocks << ") > "
+		<< termcolor::green << " (PC = " << std::setw(4) << std::setfill('0') << std::hex << emu.get_datapath().get_IFID().pc_plus_2 << ", cyc = " << std::dec << clocks << ") > "
 		<< termcolor::reset;
 	std::cout << std::setfill(' ');
 }
