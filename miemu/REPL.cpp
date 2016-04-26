@@ -110,7 +110,7 @@ void print_mem(uint16_t max_address, uint8_t width, uint8_t skip, F f)
 	}
 	std::cout << termcolor::reset << "\n";
 
-	for(int r = 0; r < ceil_div(max_address, width * skip); ++r) {
+	for(unsigned int r = 0; r < ceil_div(max_address, width); ++r) {
 		std::cout << termcolor::cyan << "  " << std::setw(2) << std::hex << std::setfill('0') << r * width << termcolor::reset << " ";
 		for(int c = 0; c < width; c += skip) {
 			std::cout << std::setw(4) << std::hex << std::setfill('0') << f(r * width + c) << " ";
