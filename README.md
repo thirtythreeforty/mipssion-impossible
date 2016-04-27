@@ -19,6 +19,8 @@ On Linux, this process would look like this:
 On Windows, you could use the CMake GUI and instead generate Visual Studio project files.
 
 Now you should be ready to build!
+On Windows, point Visual Studio to the main solution file created by CMake.
+On Linux, execute Make on the main Makefile.
 
 ## Structure
 The project is currently organized into three main modules:
@@ -29,6 +31,23 @@ The project is currently organized into three main modules:
 
 After you build, you can run `build/miemu` to use the emulator.
 The test binary will be at `build/tests/mitests`; running it will run all unit tests.
+
+## Use
+To use the emulator, supply an initial memory image and register image on the command line as arguments.
+Sample images are provided in `tests/assembly` as `test.mem` and `test.reg`.
+So if the build directory is `build`, the emulator could be invoked as:
+
+    build/miemu tests/assembly/test.mem tests/assembly/test.reg
+
+| Command | Possible Arguments                          | Meaning                                                                          |
+|---------|---------------------------------------------|----------------------------------------------------------------------------------|
+| go      | (none)                                      | Run simulated processor until HALT                                               |
+| step    | (none)                                      | Run simulated processor for one cycle                                            |
+| show    | IFID, IDEX, EXMEM, MEMWB, Registers, Memory | After each cycle, show the state of the specified data structure                 |
+| unshow  | (same as show)                              | Hide the state of the data structure                                             |
+| finish  | (none)                                      | Immediately stop the simulation and print the final state of all data structures |
+
+To run a complete simulation, first run `go`, then run `finish`.
 
 ## Resources
 - [Google Tests introduction](https://github.com/google/googletest/blob/master/googletest/docs/Primer.md)
