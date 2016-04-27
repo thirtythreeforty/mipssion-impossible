@@ -17,6 +17,11 @@ On Linux, this process would look like this:
     cmake .. -DCMAKE_BUILD_TYPE=Debug
 
 On Windows, you could use the CMake GUI and instead generate Visual Studio project files.
+The source directory is the top level directory of this source code, and the build directory can be anywhere, but we recommend a new folder called `build` just under the top level.
+Once this is configured, click Configure and Generate to produce solution files.
+This looks something like this:
+
+![example-cmake.png](example-cmake.png)
 
 Now you should be ready to build!
 On Windows, point Visual Studio to the main solution file created by CMake.
