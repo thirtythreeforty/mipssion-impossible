@@ -48,6 +48,9 @@ So if the build directory is `build`, the emulator could be invoked as:
 | finish  | (none)                                      | Immediately stop the simulation and print the final state of all data structures |
 
 To run a complete simulation, first run `go`, then run `finish`.
+Here is sample output from such an execution:
+
+![Sample output](example-execution.png)
 
 ## Resources
 - [Google Tests introduction](https://github.com/google/googletest/blob/master/googletest/docs/Primer.md)
